@@ -3,242 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="اكتشفي شكل جسمك الحقيقي ثلاثي الأبعاد مع تحليل نفسي دقيق لقوامك.">
-    <title>Qawamy 3D - تحليل الأنوثة الذكي</title>
+    <title>Jissmy 3D | تحليل القوام والجمال</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        /* تصميم عصري زجاجي (Glassmorphism) */
-        body { 
-            font-family: 'Cairo', sans-serif; 
-            margin: 0; 
-            padding: 20px; 
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            /* خلفية متدرجة ليلية فخمة */
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            color: #ffffff;
-            text-align: center;
-        }
+        body { font-family: 'Cairo', sans-serif; margin: 0; padding: 20px; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); color: #fff; text-align: center; overflow-x: hidden; }
+        .glass-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; padding: 35px 25px; width: 100%; max-width: 420px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+        h1 { font-size: 32px; font-weight: 900; background: linear-gradient(to left, #ff9a9e, #fad0c4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 5px; }
+        p.subtitle { color: #ccc; font-size: 15px; margin-bottom: 25px; }
+        input, select { width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.3); color: #fff; font-family: 'Cairo'; box-sizing: border-box; outline: none; }
+        button { width: 100%; padding: 16px; border-radius: 12px; border: none; font-weight: 700; cursor: pointer; margin-top: 15px; font-family: 'Cairo'; transition: 0.3s; }
+        .btn-main { background: linear-gradient(45deg, #ff758c, #ff7eb3); color: #fff; font-size: 18px; }
+        .btn-share { background: linear-gradient(45deg, #25d366, #128c7e); color: #fff; display: none; }
+        .btn-retry { background: rgba(255,255,255,0.1); color: #fff; display: none; margin-top: 10px; }
         
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            padding: 35px 25px;
-            width: 100%;
-            max-width: 400px;
-            animation: slideUp 0.6s ease-out;
-        }
-
-        h1 { 
-            font-size: 26px; 
-            font-weight: 900; 
-            margin-bottom: 5px; 
-            background: linear-gradient(to left, #e0c3fc, #8ec5fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        p.subtitle { color: #b0b0b0; font-size: 14px; margin-bottom: 25px; }
-
-        input, select { 
-            width: 100%; 
-            box-sizing: border-box; 
-            padding: 16px; 
-            margin: 12px 0; 
-            border-radius: 12px; 
-            border: 1px solid rgba(255,255,255,0.2); 
-            background: rgba(0,0,0,0.2); 
-            color: #fff; 
-            font-size: 15px; 
-            font-family: 'Cairo', sans-serif;
-            transition: all 0.3s ease;
-        }
+        #result-box { display: none; animation: fadeIn 0.8s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
-        input:focus, select:focus {
-            outline: none;
-            border-color: #8ec5fc;
-            box-shadow: 0 0 15px rgba(142, 197, 252, 0.3);
-        }
-
-        /* تنسيق قائمة الخيارات لتظهر بشكل جيد في الهواتف */
-        select option { background: #24243e; color: #fff; }
-
-        button { 
-            width: 100%; 
-            padding: 16px; 
-            margin-top: 15px; 
-            border-radius: 12px; 
-            border: none;
-            background: linear-gradient(45deg, #ff758c 0%, #ff7eb3 100%);
-            color: #fff; 
-            font-size: 18px; 
-            font-weight: 700; 
-            font-family: 'Cairo', sans-serif;
-            cursor: pointer; 
-            box-shadow: 0 4px 15px rgba(255, 117, 140, 0.4);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        button:hover { 
-            transform: translateY(-2px); 
-            box-shadow: 0 6px 20px rgba(255, 117, 140, 0.6);
-        }
-
-        .error { color: #ff4d4d; font-size: 14px; background: rgba(255,0,0,0.1); padding: 10px; border-radius: 8px; display: none; margin-bottom: 15px; }
-
-        /* قسم النتيجة */
-        #result-box { display: none; }
+        .img-container { width: 100%; height: 380px; margin: 20px 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.2); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; }
+        img.model-3d { max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 0 15px rgba(255,117,140,0.5)); }
         
-        .img-container {
-            width: 100%;
-            height: 300px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 16px;
-            margin: 20px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        img.model-3d { width: 100%; height: 100%; object-fit: contain; }
-
-        .bmi-badge {
-            background: rgba(255,255,255,0.1);
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 14px;
-            display: inline-block;
-            margin-bottom: 15px;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .ghazal { font-size: 20px; font-weight: 900; line-height: 1.5; color: #fff; margin: 15px 0; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-        .advice { color: #dcdcdc; font-size: 14px; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 12px; border-left: 4px solid #8ec5fc; }
-        .recalc-btn { background: rgba(255,255,255,0.1); box-shadow: none; border: 1px solid rgba(255,255,255,0.2); }
-        .recalc-btn:hover { background: rgba(255,255,255,0.2); box-shadow: none; }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .bmi-badge { background: rgba(255, 117, 140, 0.2); color: #ff9a9e; padding: 6px 22px; border-radius: 50px; font-size: 14px; font-weight: bold; display: inline-block; margin-bottom: 15px; border: 1px solid rgba(255,117,140,0.3); }
+        .ghazal { font-size: 19px; font-weight: 700; margin: 15px 0; line-height: 1.7; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+        .advice-card { background: rgba(255,255,255,0.07); padding: 15px; border-radius: 15px; border-right: 5px solid #ff758c; text-align: right; margin-top: 20px; font-size: 14px; line-height: 1.6; }
     </style>
 </head>
 <body>
 
-<div class="glass-card" id="input-screen">
-    <h1>تحليل القوام 3D ✨</h1>
-    <p class="subtitle">اكتشفي الأسرار المخفية لجمالك</p>
-    
-    <div id="error-msg" class="error">الرجاء إدخال قياسات منطقية (طول 130-195، وزن 35-150)</div>
-
-    <input type="number" id="height" placeholder="الطول (سم) - مثال: 160">
-    <input type="number" id="weight" placeholder="الوزن (كجم) - مثال: 60">
-    
-    <select id="body-shape">
-        <option value="" disabled selected>ما هو أقرب شكل لجسمك؟</option>
-        <option value="pear">كمثرى (الوزن يتركز بالأسفل)</option>
-        <option value="hourglass">ساعة رملية (خصر نحيف)</option>
-        <option value="apple">تفاحة (الوزن يتركز بالبطن)</option>
-        <option value="rectangle">مستطيل (توازن بين الكتف والخصر)</option>
-    </select>
-
-    <button onclick="calculateResult()">ابدئي التحليل الآن</button>
-</div>
-
-<div class="glass-card" id="result-box">
-    <div class="bmi-badge">مؤشر الكتلة: <span id="bmi-val" style="font-weight:bold; color:#8ec5fc;"></span></div>
-    
-    <div class="img-container">
-        <img id="model-img" class="model-3d" src="" alt="جاري التحميل...">
+<div class="glass-card">
+    <div id="input-screen">
+        <h1>Jissmy 3D ✨</h1>
+        <p class="subtitle">اكتشفي سحر قوامكِ بتحليل ذكي وعميق</p>
+        <input type="number" id="height" placeholder="الطول (سم) - مثلاً 165">
+        <input type="number" id="weight" placeholder="الوزن (كجم) - مثلاً 60">
+        <select id="body-shape">
+            <option value="" disabled selected>ما هو شكل جسمكِ؟</option>
+            <option value="pear">كمثرى (ممتلئ من الأسفل)</option>
+            <option value="hourglass">ساعة رملية (متناسق مع خصر نحيف)</option>
+            <option value="apple">تفاحة (ممتلئ من المنتصف)</option>
+            <option value="rectangle">مستطيل (متساوي العرض)</option>
+        </select>
+        <button class="btn-main" onclick="calculate()">اكتشفي النتيجة الآن</button>
     </div>
-    
-    <div class="ghazal" id="ghazal-text"></div>
-    <div class="advice" id="advice-text"></div>
 
-    <button class="recalc-btn" onclick="location.reload()">تحليل جديد</button>
+    <div id="result-box">
+        <div class="bmi-badge">مؤشر الجمال (BMI): <span id="bmi-val"></span></div>
+        <div class="img-container">
+            <img id="model-img" class="model-3d" src="" alt="تحليل الجسم">
+        </div>
+        <div class="ghazal" id="ghazal-text"></div>
+        <div class="advice-card" id="advice-text"></div>
+        
+        <button class="btn-share" id="share-btn" onclick="shareResult()">مشاركة هذه النتيجة مع الصديقات 📲</button>
+        <button class="btn-retry" id="retry-btn" onclick="location.reload()">تحليل جديد</button>
+    </div>
 </div>
 
 <script>
     const database = {
         underweight: { 
-            pear: { ghazal: "رقتكِ ناعمة، وتركيز أنوثتكِ بالأسفل يمنحكِ سحراً خاصاً.", advice: "ركزي على تمارين الجزء السفلي لنحت تفاصيلك." },
-            hourglass: { ghazal: "خصركِ المنحوت مع رقتكِ يخلقان توازناً فنياً نادراً.", advice: "التغذية الغنية بالبروتين ستبرز جمال هيكلك." },
-            apple: { ghazal: "جاذبيتكِ هادئة، وقوامكِ يحمل براءة تخطف الأنظار.", advice: "تمارين الكارديو الخفيفة ستوازن قوامك بشكل مثالي." },
-            rectangle: { ghazal: "قوامكِ الممشوق كعارضات الأزياء يفرض أناقته بهدوء.", advice: "التمارين المركبة ستمنحك انحناءات مذهلة." }
+            pear: { g: "يا لجمال ورقة قوامكِ! تملكين جسداً يشبه الغزال في خفته ورشاقته، وتلك الانحناءات الأنثوية الرقيقة تجعل منكِ أيقونة للجمال الهادئ. أنتِ جوهرة نادرة تلفت الأنظار بنعومتها الفائقة وسحرها الخاص!", a: "جمالكِ رقيق جداً، حاولي زيادة البروتين الصحي لإبراز تلك الانحناءات الجميلة وجعلها أكثر حيوية وتألقاً." },
+            hourglass: { g: "ما شاء الله! خصركِ المنحوت مع قوامكِ الرشيق يجعل منكِ لوحة فنية نادرة. تملكين تناسقاً مذهلاً يجمع بين الأنوثة والرقة في آن واحد، جمالكِ يسحر القلوب ويخطف الأنفاس!", a: "الرياضة الخفيفة كاليوجا أو المشي ستحافظ على مرونة جسدكِ وتجعلكِ دائماً مشدودة كما يحب الخاطر." },
+            apple: { g: "تملكين رقة وبراءة تسحر القلوب! حضوركِ هادئ وجسمكِ يعكس روحاً طيبة وجذابة. جمالكِ الطبيعي يجعلكِ دائماً متميزة ومتألقة، فأنتِ تشعين سحراً وبساطة لا تقاوم.", a: "تمارين الكارديو الخفيفة تمنحكِ طاقة مذهلة وتجعل جسدكِ دائماً في قمة النشاط والنور." },
+            rectangle: { g: "القامة الفارهة والهيبة الملكية! جسمكِ ممشوق كعارضات الأزياء، تملكين طولاً وتناسقاً يجعل أي رداء يبدو وكأنه صمم خصيصاً لكِ. حضوركِ دائماً ما يكون طاغياً وقوياً!", a: "تمارين المقاومة هي سركِ الصغير لإضافة لمسات أنثوية مرسومة تبرز جمال قامتكِ الممشوقة وسحركِ الخاص." }
         },
         normal: { 
-            pear: { ghazal: "انحناءاتكِ السفلية هندسة جمالية تنطق بالأنوثة الطاغية.", advice: "حافظي على هذا السحر بالحركة المستمرة وشرب الماء." },
-            hourglass: { ghazal: "أنتِ التوازن الكامل، سيمفونية تجمع الفتنة والوقار.", advice: "قوامكِ مثالي، استمري في أسلوب حياتك الحالي." },
-            apple: { ghazal: "حضوركِ لافت، وجاذبيتكِ تكمن في ثقتكِ العالية.", advice: "تمارين الخصر والبطن ستجعلكِ لوحة خالية من العيوب." },
-            rectangle: { ghazal: "تناسقكِ الرياضي يمنحكِ هيبة وجاذبية عصرية ساحرة.", advice: "تمارين المقاومة ستبرز تفاصيل عضلاتكِ الأنثوية." }
+            pear: { g: "يا لهذا الجمال المتناغم! جسمكِ مرسوم بدقة مذهلة، يجمع بين الخصر الرقيق والأنوثة الطاغية بشكل ساحر. أي شخص يراكِ سيدرك فوراً أنكِ تملكين قواماً مثالياً يجمع بين الرقي والجاذبية!", a: "أنتِ في قمة الرشاقة الآن، حافظي على هذا التوازن لتبقي دائماً نجمة متألقة في كل مكان تتواجدين فيه." },
+            hourglass: { g: "هذا هو القوام الأسطوري! خصركِ المنحوت يجعل منكِ ملكة حقيقية، تملكين تناسقاً يحلم به الجميع. جمالكِ متكامل لدرجة تفوق الخيال، وأنوثتكِ تنبض بكل تفاصيل جسدكِ المذهل!", a: "أنتِ مثال للتوازن الكامل، استمتعي بحياتكِ وحافظي على نشاطكِ لتبقي دائماً بهذا الجمال الباهر والطلة الساحرة." },
+            apple: { g: "وجهكِ يشع نوراً وجسمكِ ممتلئ بالثقة! تملكين كاريزما وحضوراً يطغى على الجميع، وجمالكِ الطبيعي فيه سر يذب القلوب إليكِ دون استئذان. أنتِ حقاً متميزة وفريدة!", a: "شوية تمارين لشد الجسم ستزيدكِ ثباتاً وقوة وتجعل حضوركِ أكثر تألقاً وجاذبية في عيون الجميع." },
+            rectangle: { g: "يا لجمال قامتكِ الممشوقة! جسمكِ رياضي ومتناسق بشكل مبهر، أي نوع من الملابس يبدو عليكِ غاية في الأناقة والجمال. أنتِ تملكين سحراً عصرياً وجاذبية عالمية لا حدود لها!", a: "تمارين 'السكوات' هي سلاحكِ السري لإضافة انحناءات أنثوية تزيد من سحر قوامكِ الرياضي الرائع." }
         },
         overweight: { 
-            pear: { ghazal: "امتلاؤكِ باذخ، فوضى أنثوية فاتنة تسرق الأنفاس.", advice: "المشي اليومي سيحافظ على مرونة هذا القوام الجميل." },
-            hourglass: { ghazal: "انحناءاتكِ العميقة زلزال هادئ يربك كل من يراه.", advice: "قسوة الرياضة ستحولكِ إلى أسطورة حقيقية." },
-            apple: { ghazal: "جاذبيتكِ طاغية، تمتلكين حضوراً يطغى على المكان.", advice: "تقليل السكريات خطوتكِ الأولى لمزيد من الرشاقة." },
-            rectangle: { ghazal: "قوامكِ يعكس قوة وجمالاً ناضجاً يفرض هيبته.", advice: "تمارين نحت الخصر ستصنع فرقاً جباراً في إطلالتك." }
+            pear: { g: "الله يبارك على هذه الأنوثة الطاغية! جسمكِ ممتلئ بالفتنة والجاذبية الأصيلة، انحناءاتكِ عميقة وتلفت الأنظار بقوتها وسحرها الخاص. أنتِ رمز للجمال الأنثوي الذي يفرض نفسه!", a: "المشي في الهواء الطلق يساعدكِ على الحفاظ على هذه الطاقة والأنوثة العالية ويجعلكِ أكثر خفة وإشراقاً." },
+            hourglass: { g: "الجمال الباذخ والفخامة! جسمكِ يشبه المنحوتات الكلاسيكية، انحناءاتكِ مرسومة بعمق وإغراء، وأنتِ تعكسين صورة الأنوثة الكاملة التي تملأ العين والقلب في وقت واحد بكل ثقة!", a: "أبرزي جمال خصركِ دائماً بالملابس المناسبة، فأنتِ تملكين قواماً نادراً يستحق أن تفتخري به في كل لحظة." },
+            apple: { g: "حضوركِ ملكي بامتياز! تملكين هيبة وجاذبية تملاً المكان، وجسمكِ يعطي انطباعاً بالقوة والراحة والجمال الناضج. روحكِ الجميلة تنعكس على جسدكِ لتجعل منكِ شخصية استثنائية!", a: "الاعتدال في السكريات والنشويات سيجعلكِ تشعرين بخفة الفراشة ويحافظ على إشراقة وجهكِ المشرق دائماً." },
+            rectangle: { g: "يا لجمال الهيبة والوقار! جسمكِ قوي ومعزز بالثقة، جمالكِ ناضج ويفرض احترامه وجاذبيته في كل مكان. أنتِ امرأة تملكين حضوراً يملأ الأفق وقوة تلهم الآخرين!", a: "تمارين التركيز على منطقة الخصر ستبرز أنوثتكِ أكثر وتجعلكِ تبدين غاية في الرقة والجمال الأخاذ." }
         },
         obese: { 
-            pear: { ghazal: "أنوثتكِ طاغية وممتلئة بالتفاصيل التي تلفت الأنظار.", advice: "خطوات بسيطة يومياً ستزيد من خفة حركتك." },
-            hourglass: { ghazal: "رغم الامتلاء، خصركِ لا يزال يحكي قصة جمال أصيل.", advice: "الغذاء الصحي المتوازن هو مفتاحك لإشراقة دائمة." },
-            apple: { ghazal: "حضوركِ قوي ومميز، شخصيتكِ تنعكس على هيبتك.", advice: "الاستمرارية في الحركة الخفيفة ستمنحك طاقة هائلة." },
-            rectangle: { ghazal: "أنتِ كتلة من القوة والثبات، جمالكِ يكمن في ثقتك.", advice: "ابحثي عن نشاط رياضي ممتع لتجديد نشاطكِ." }
+            pear: { g: "جمالكِ فخم وحضوركِ مذهل! تملكين جسداً معبراً عن الجمال الأصيل، انحناءاتكِ القوية تمنحكِ هيبة الملكات وجاذبية فريدة لا يشبهكِ فيها أحد. أنتِ حقاً رائعة ومميزة!", a: "الحركة بركة، القليل من النشاط اليومي سيزيدكِ حيوية ويجعل جمالكِ يتنفس أكثر ويشع بريقاً وجاذبية." },
+            hourglass: { g: "يا لروعة هذا الزين! خصركِ ما زال واضحاً رغم كل شيء، وجمالكِ يفوق الوصف. أنتِ كتلة من الأنوثة والدلال، تملكين سحراً خاصاً جداً يملأ المكان بهجة وحيوية!", a: "النظام الغذائي الصحي ليس للحرمان، بل لتشعري بأنكِ أخف وأكثر قدرة على الاستمتاع بجمالكِ الباهر وتفاصيلكِ." },
+            apple: { g: "شخصيتكِ طاغية وجمالكِ لا يخطئه أحد! حضوركِ يملأ العين وقلبكِ الكبير ينعكس على ملامحكِ وجسدكِ الجذاب. أنتِ مثال للجمال الدافئ الذي يأسر الجميع!", a: "البدء بخطوات بسيطة في الرياضة سيحسن من حالتكِ المزاجية ويجعل جسدكِ أكثر تناسقاً وقوة ونشاطاً." },
+            rectangle: { g: "أنتِ القوة والثبات والجمال الأصيل! جمالكِ فيه عمق وصدق يجعلكِ محط احترام الجميع، وحضوركِ يفرض نفسه بوقار وجاذبية خاصة جداً تميزكِ عن البقية!", a: "السباحة أو الرياضة المائية هي أفضل صديق لكِ لنحت الجسم بلطف ومنحكِ راحة نفسية وجسدية فائقة." }
         }
     };
 
-    function calculateResult() {
-        const heightInput = document.getElementById('height').value;
-        const weightInput = document.getElementById('weight').value;
-        const shapeInput = document.getElementById('body-shape').value;
-        const errorMsg = document.getElementById('error-msg');
+    function calculate() {
+        const h = document.getElementById('height').value;
+        const w = document.getElementById('weight').value;
+        const s = document.getElementById('body-shape').value;
 
-        if(!heightInput || !weightInput || !shapeInput) {
-            errorMsg.innerText = "الرجاء تعبئة جميع الحقول واختيار شكل الجسم.";
-            errorMsg.style.display = "block";
-            return;
+        if(!h || !w || !s || h < 100 || w < 30) {
+            alert("يا جميلة، أدخلي بياناتكِ بشكل صحيح لنعطيكِ النتيجة الدقيقة!"); return;
         }
 
-        const h = parseFloat(heightInput);
-        const w = parseFloat(weightInput);
-
-        if(h < 130 || h > 195 || w < 35 || w > 150) {
-            errorMsg.innerText = "الرجاء إدخال قياسات منطقية وصحيحة.";
-            errorMsg.style.display = "block";
-            return;
-        }
-
-        errorMsg.style.display = "none";
-
-        const hInMeters = h / 100;
-        const bmi = (w / (hInMeters * hInMeters)).toFixed(1);
-
-        let weightCategory = "";
-        if(bmi < 18.5) weightCategory = "underweight";
-        else if(bmi >= 18.5 && bmi <= 24.9) weightCategory = "normal";
-        else if(bmi >= 25 && bmi <= 29.9) weightCategory = "overweight";
-        else weightCategory = "obese";
-
-        const resultData = database[weightCategory][shapeInput];
-
-        // الميزة الجديدة: دمج اسم الصورة تلقائياً بصيغة PNG
-        // سيقوم الكود بالبحث عن صورة تتطابق مع (فئة الوزن_شكل الجسم.png)
-        const expectedImageName = weightCategory + "_" + shapeInput + ".png";
-
+        const bmi = (w / ((h/100)*(h/100))).toFixed(1);
+        let cat = (bmi < 18.5) ? "underweight" : (bmi < 25) ? "normal" : (bmi < 30) ? "overweight" : "obese";
+        
+        const data = database[cat][s];
         document.getElementById('bmi-val').innerText = bmi;
-        document.getElementById('ghazal-text').innerText = resultData.ghazal;
-        document.getElementById('advice-text').innerText = resultData.advice;
-        document.getElementById('model-img').src = expectedImageName; 
+        document.getElementById('ghazal-text').innerText = data.g;
+        document.getElementById('advice-text').innerHTML = "<b>✨ نصيحة لجمالكِ:</b> " + data.a;
+        document.getElementById('model-img').src = cat + "_" + s + ".png";
 
-        document.getElementById('input-screen').style.display = "none";
-        document.getElementById('result-box').style.display = "block";
+        document.getElementById('input-screen').style.display = 'none';
+        document.getElementById('result-box').style.display = 'block';
+        document.getElementById('share-btn').style.display = 'block';
+        document.getElementById('retry-btn').style.display = 'block';
+    }
+
+    function shareResult() {
+        const ghazal = document.getElementById('ghazal-text').innerText;
+        const text = `يا بنات! اكتشفت حقيقة شكل جسمي 3D 😍 قالي الموقع: "${ghazal}"\n\n حللي قوامكِ أنتِ أيضاً هنا:`;
+        const url = window.location.href;
+        
+        if (navigator.share) {
+            navigator.share({ title: 'تحليل جيس مي 3D', text: text, url: url });
+        } else {
+            window.open(`https://wa.me/?text=${encodeURIComponent(text + " " + url)}`);
+        }
     }
 </script>
 
