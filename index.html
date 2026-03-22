@@ -4,11 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <meta property="og:title" content="Jissmy 3D | اكتشفي سحر قوامكِ ✨">
-    <meta property="og:description" content="حللت بيانات جسمي وخرجت لي نتيجة مذهلة! جربي الآن">
-    <meta property="og:image" content="https://jissmy-ai.github.io/my-jissmy/normal_hourglass.png"> 
+    <title>Jissmy 3D | حساب شكل الجسم وتحليل الأنوثة بالذكاء الاصطناعي</title>
+    <meta name="description" content="اكتشفي شكل جسمكِ (ساعة رملية، كمثرى، تفاحة) مع تحليل BMI دقيق ونصائح جمالية وغزل خاص بقوامكِ عبر تقنية Jissmy 3D المذهلة.">
+    <meta name="keywords" content="شكل الجسم، حساب كتلة الجسم، BMI للنساء، ساعة رملية، جسم الكمثرى، تحليل القوام، ذكاء اصطناعي للجمال، Jissmy 3D، نصائح رشاقة">
+    <meta name="author" content="Jissmy AI">
+    <link rel="canonical" href="https://jissmy-ai.github.io/my-jissmy/">
 
-    <title>Jissmy 3D | تحليل الأنوثة</title>
+    <meta property="og:title" content="Jissmy 3D | اكتشفي سحر قوامكِ ✨">
+    <meta property="og:description" content="حللت بيانات جسمي وخرجت لي نتيجة مذهلة! جربي الآن واكتشفي نوع قوامكِ بالـ 3D">
+    <meta property="og:image" content="https://jissmy-ai.github.io/my-jissmy/normal_hourglass.png"> 
+    <meta property="og:type" content="website">
+
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #ff758c; --secondary: #4facfe; --bg: #0f0c29; }
@@ -27,7 +33,6 @@
             border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 25px; 
             padding: 25px; width: 100%; max-width: 380px; text-align: center;
             box-shadow: 0 15px 35px rgba(0,0,0,0.4); margin-top: 20px;
-            transition: 0.3s;
         }
         h1 { font-size: 30px; margin: 0 0 10px 0; background: linear-gradient(45deg, #ff9a9e, #fad0c4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; }
         input, select { width: 100%; padding: 14px; margin: 8px 0; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.3); color: #fff; font-family: 'Cairo'; outline: none; }
@@ -36,8 +41,7 @@
         #result-box { display: none; width: 100%; }
         .bmi-badge { background: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 15px; margin-bottom: 15px; border: 1px dashed var(--secondary); }
         .bmi-number { font-size: 24px; font-weight: 900; color: var(--secondary); display: block; }
-        
-        /* تأثير الميلان 3D */
+
         .img-container { 
             width: 100%; height: 320px; margin: 15px 0; border-radius: 20px; 
             background: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; 
@@ -47,9 +51,7 @@
             max-width: 90%; max-height: 90%; object-fit: contain; 
             transition: transform 0.5s ease; transform-style: preserve-3d;
         }
-        .glass-card:hover img.model-3d {
-            transform: rotateY(12deg) rotateX(5deg);
-        }
+        .glass-card:hover img.model-3d { transform: rotateY(12deg) rotateX(5deg); }
 
         .ghazal-container { font-size: 17px; line-height: 1.6; margin: 15px 0; }
         .read-more { color: #4facfe; cursor: pointer; font-weight: 700; text-decoration: underline; display: block; margin-top: 8px; }
@@ -146,19 +148,15 @@
         const w = document.getElementById('weight').value;
         const s = document.getElementById('body-shape').value;
         if(!h || !w || !s) return alert("أدخلي بياناتكِ يا جميلة!");
-
         const bmi = (w / ((h/100)*(h/100))).toFixed(1);
         let cat = (bmi < 18.5) ? "underweight" : (bmi < 25) ? "normal" : (bmi < 30) ? "overweight" : "obese";
-        
         document.getElementById('bmi-val').innerText = bmi;
         document.getElementById('health-desc').innerText = healthMessages[cat];
-
         const data = database[cat][s];
         document.getElementById('intro-text').innerText = data.i;
         document.getElementById('full-text').innerText = data.f;
         document.getElementById('advice-text').innerHTML = "<b>💡 نصيحة لجمالكِ:</b> " + data.a;
         document.getElementById('model-img').src = cat + "_" + s + ".png";
-
         document.getElementById('input-screen').style.display = 'none';
         document.getElementById('result-box').style.display = 'block';
     }
