@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <meta property="og:title" content="Jissmy 3D | اكتشفي سحر قوامكِ ✨">
-    <meta property="og:description" content="حللت بيانات جسمي وخرجت لي نتيجة مذهلة! جربي الآن">
+    <meta property="og:description" content="حللت بيانات جسمي وخرجت لي نتيجة مذهلة! جربي الآن واكتشفي نوع قوامكِ">
     <meta property="og:image" content="https://jissmy-ai.github.io/my-jissmy/normal_hourglass.png"> 
 
     <title>Jissmy 3D | تحليل الأنوثة</title>
@@ -33,6 +33,10 @@
         .btn-main { width: 100%; padding: 16px; border-radius: 12px; border: none; background: linear-gradient(45deg, #ff758c, #ff7eb3); color: white; font-weight: 900; font-size: 17px; cursor: pointer; }
 
         #result-box { display: none; width: 100%; }
+        .bmi-badge { background: rgba(255, 255, 255, 0.15); padding: 10px; border-radius: 15px; margin-bottom: 15px; border: 1px dashed var(--secondary); }
+        .bmi-number { font-size: 24px; font-weight: 900; color: var(--secondary); display: block; }
+        .bmi-status { font-size: 14px; opacity: 0.9; }
+
         .img-container { width: 100%; height: 320px; margin: 15px 0; border-radius: 20px; background: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; overflow: hidden; }
         img.model-3d { max-width: 90%; max-height: 90%; object-fit: contain; animation: float 4s infinite ease-in-out; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
@@ -64,6 +68,12 @@
     </div>
 
     <div id="result-box">
+        <div class="bmi-badge">
+            <span class="bmi-status" id="bmi-label">مؤشر الجمال الصحي:</span>
+            <span class="bmi-number" id="bmi-val">0.0</span>
+            <span class="bmi-status" id="health-desc"></span>
+        </div>
+
         <div class="img-container"><img id="model-img" class="model-3d" src=""></div>
         <div class="ghazal-container">
             <span id="intro-text"></span>
@@ -89,6 +99,13 @@
         bg.appendChild(circle);
     }
 
+    const healthText = {
+        underweight: "وزنكِ رقيق جداً، اهتمي بالتغذية لتبرز مفاتنكِ أكثر.",
+        normal: "وزنكِ مثالي وصحي جداً، أنتِ تملكين توازناً مذهلاً!",
+        overweight: "لديكِ امتلاء أنثوي جذاب، حافظي على رشاقتكِ لتدوم.",
+        obese: "جمالكِ فخم، لكن الصحة أولاً.. القليل من النشاط سيفيدكِ."
+    };
+
     const database = {
         underweight: { 
             pear: { i: "يا لجمال ورقة قوامكِ! تملكين جسداً يشبه الغزال في خفته..", f: " وتلك الانحناءات الأنثوية الرقيقة تجعل منكِ أيقونة للجمال الهادئ. أنتِ جوهرة نادرة تلفت الأنظار بنعومتها الفائقة وسحرها الخاص!", a: "زيدي البروتين الصحي لإبراز جمالكِ أكثر." },
@@ -98,7 +115,7 @@
         },
         normal: { 
             pear: { i: "يا لهذا الجمال المتناغم! جسمكِ مرسوم بدقة يجمع بين الخصر الرقيق..", f: " والأنوثة الطاغية بشكل ساحر. أي شخص يراكِ سيدرك فوراً أنكِ تملكين قواماً مثالياً يجمع بين الرقي والجاذبية!", a: "حافظي على هذا التوازن، أنتِ في القمة." },
-            hourglass: { i: "هذا هو القوام الأسطوري! خصركِ المنحوت يجعل منكِ ملكة حقيقية..", f: " تملكين تناسقاً يحلم به الجميع. جمالكِ متكامل لدرجة تفوق الخيال وأنوثتكِ تنبض بكل تفاصيلكِ الفاتنة!", a: "أنتِ مثال للتوازن، استمتعي بجمالكِ." },
+            hourglass: { i: "هذا هو القوام الأسطوري! خصركِ المنحوت يجعل منكِ ملكة حقيقية..", f: " تملكين تناسقاً يحلم به الجميع. جمالكِ متكامل لدرقة تفوق الخيال وأنوثتكِ تنبض بكل تفاصيلكِ الفاتنة!", a: "أنتِ مثال للتوازن، استمتعي بجمالكِ." },
             apple: { i: "وجهكِ يشع نوراً وجسمكِ ممتلئ بالثقة! تملكين كاريزما وحضوراً..", f: " يطغى على الجميع، وجمالكِ الطبيعي فيه سر يجذب القلوب إليكِ دون استئذان. أنتِ حقاً متميزة وفريدة!", a: "تمارين الشد ستزيدكِ جاذبية مذهلة." },
             rectangle: { i: "يا لجمال قامتكِ الممشوقة! جسمكِ رياضي ومتناسق بشكل مبهر..", f: " أي نوع من الملابس يبدو عليكِ غاية في الأناقة. تملكين سحراً عصرياً وجاذبية عالمية لا حدود لها!", a: "السكوات سيزيد من أنوثة قوامكِ." }
         },
@@ -121,13 +138,20 @@
         const w = document.getElementById('weight').value;
         const s = document.getElementById('body-shape').value;
         if(!h || !w || !s) return alert("أدخلي بياناتكِ يا جميلة!");
+
         const bmi = (w / ((h/100)*(h/100))).toFixed(1);
         let cat = (bmi < 18.5) ? "underweight" : (bmi < 25) ? "normal" : (bmi < 30) ? "overweight" : "obese";
+        
+        // تحديث الـ BMI والوصف الصحي
+        document.getElementById('bmi-val').innerText = bmi;
+        document.getElementById('health-desc').innerText = healthText[cat];
+
         const data = database[cat][s];
         document.getElementById('intro-text').innerText = data.i;
         document.getElementById('full-text').innerText = data.f;
         document.getElementById('advice-text').innerHTML = "<b>💡 نصيحة لجمالكِ:</b> " + data.a;
         document.getElementById('model-img').src = cat + "_" + s + ".png";
+
         document.getElementById('input-screen').style.display = 'none';
         document.getElementById('result-box').style.display = 'block';
     }
