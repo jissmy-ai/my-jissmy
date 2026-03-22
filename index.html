@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <meta property="og:title" content="Jissmy 3D | اكتشفي سحر قوامكِ ✨">
-    <meta property="og:description" content="حللت بيانات جسمي وخرجت لي نتيجة مذهلة! جربي الآن واكتشفي نوع قوامكِ">
+    <meta property="og:description" content="حللت بيانات جسمي وخرجت لي نتيجة مذهلة! جربي الآن">
     <meta property="og:image" content="https://jissmy-ai.github.io/my-jissmy/normal_hourglass.png"> 
 
     <title>Jissmy 3D | تحليل الأنوثة</title>
@@ -27,19 +27,29 @@
             border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 25px; 
             padding: 25px; width: 100%; max-width: 380px; text-align: center;
             box-shadow: 0 15px 35px rgba(0,0,0,0.4); margin-top: 20px;
+            transition: 0.3s;
         }
         h1 { font-size: 30px; margin: 0 0 10px 0; background: linear-gradient(45deg, #ff9a9e, #fad0c4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; }
         input, select { width: 100%; padding: 14px; margin: 8px 0; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.3); color: #fff; font-family: 'Cairo'; outline: none; }
         .btn-main { width: 100%; padding: 16px; border-radius: 12px; border: none; background: linear-gradient(45deg, #ff758c, #ff7eb3); color: white; font-weight: 900; font-size: 17px; cursor: pointer; }
 
         #result-box { display: none; width: 100%; }
-        .bmi-badge { background: rgba(255, 255, 255, 0.15); padding: 10px; border-radius: 15px; margin-bottom: 15px; border: 1px dashed var(--secondary); }
+        .bmi-badge { background: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 15px; margin-bottom: 15px; border: 1px dashed var(--secondary); }
         .bmi-number { font-size: 24px; font-weight: 900; color: var(--secondary); display: block; }
-        .bmi-status { font-size: 14px; opacity: 0.9; }
-
-        .img-container { width: 100%; height: 320px; margin: 15px 0; border-radius: 20px; background: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        img.model-3d { max-width: 90%; max-height: 90%; object-fit: contain; animation: float 4s infinite ease-in-out; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        
+        /* تأثير الميلان 3D */
+        .img-container { 
+            width: 100%; height: 320px; margin: 15px 0; border-radius: 20px; 
+            background: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; 
+            overflow: hidden; perspective: 1000px;
+        }
+        img.model-3d { 
+            max-width: 90%; max-height: 90%; object-fit: contain; 
+            transition: transform 0.5s ease; transform-style: preserve-3d;
+        }
+        .glass-card:hover img.model-3d {
+            transform: rotateY(12deg) rotateX(5deg);
+        }
 
         .ghazal-container { font-size: 17px; line-height: 1.6; margin: 15px 0; }
         .read-more { color: #4facfe; cursor: pointer; font-weight: 700; text-decoration: underline; display: block; margin-top: 8px; }
@@ -69,11 +79,10 @@
 
     <div id="result-box">
         <div class="bmi-badge">
-            <span class="bmi-status" id="bmi-label">مؤشر الجمال الصحي:</span>
+            <span style="font-size: 12px; opacity: 0.8;">مؤشر الجمال الصحي (BMI):</span>
             <span class="bmi-number" id="bmi-val">0.0</span>
-            <span class="bmi-status" id="health-desc"></span>
+            <span id="health-desc" style="font-size: 14px;"></span>
         </div>
-
         <div class="img-container"><img id="model-img" class="model-3d" src=""></div>
         <div class="ghazal-container">
             <span id="intro-text"></span>
@@ -87,7 +96,6 @@
 </div>
 
 <script>
-    // كرات الخلفية
     const bg = document.getElementById('bg');
     for (let i = 0; i < 8; i++) {
         const circle = document.createElement('div');
@@ -99,7 +107,7 @@
         bg.appendChild(circle);
     }
 
-    const healthText = {
+    const healthMessages = {
         underweight: "وزنكِ رقيق جداً، اهتمي بالتغذية لتبرز مفاتنكِ أكثر.",
         normal: "وزنكِ مثالي وصحي جداً، أنتِ تملكين توازناً مذهلاً!",
         overweight: "لديكِ امتلاء أنثوي جذاب، حافظي على رشاقتكِ لتدوم.",
@@ -142,9 +150,8 @@
         const bmi = (w / ((h/100)*(h/100))).toFixed(1);
         let cat = (bmi < 18.5) ? "underweight" : (bmi < 25) ? "normal" : (bmi < 30) ? "overweight" : "obese";
         
-        // تحديث الـ BMI والوصف الصحي
         document.getElementById('bmi-val').innerText = bmi;
-        document.getElementById('health-desc').innerText = healthText[cat];
+        document.getElementById('health-desc').innerText = healthMessages[cat];
 
         const data = database[cat][s];
         document.getElementById('intro-text').innerText = data.i;
