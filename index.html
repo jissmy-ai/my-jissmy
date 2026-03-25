@@ -122,6 +122,8 @@
             <h2 id="bodyTitle" style="color:var(--gold);"></h2>
             <div id="bmiDisplay" class="bmi-badge"></div>
             <p id="bodyBrief" style="line-height:1.8;"></p>
+            <button class="btn-main" onclick="shareResult()" style="margin-top: 15px; background: transparent; border: 1px solid var(--gold); color: var(--gold); font-size: 1em; padding: 15px;">📤 مشاركة نتيجتي الساحرة</button>
+            
         </div>
 
         <div class="action-tabs">
@@ -266,6 +268,24 @@
         content.style.display = content.style.display === 'block' ? 'none' : 'block';
         el.innerText = content.style.display === 'block' ? 'إخفاء التفاصيل ⌃' : '✨ قراءة المزيد...';
     }
+        function shareResult() {
+        const title = document.getElementById('bodyTitle').innerText;
+        const bmi = document.getElementById('bmiDisplay').innerText;
+        const shareText = `اكتشفت شكل جسمي الحقيقي ( ${title} ) عبر محلل Jissmy 3D! ✨\n${bmi}\nحللي قوامكِ واحصلي على برامجكِ الخاصة الآن!`;
+        
+        if (navigator.share) {
+            navigator.share({
+                title: 'Jissmy 3D - تحليل القوام',
+                text: shareText,
+                url: window.location.href // رابط موقعك
+            }).catch(console.error);
+        } else {
+            // في حال كان المتصفح قديماً أو لا يدعم المشاركة المباشرة
+            navigator.clipboard.writeText(shareText + "\n" + window.location.href);
+            alert("تم نسخ النتيجة بنجاح! يمكنك الآن لصقها في أي مكان ومشاركتها.");
+        }
+        }
+    
 </script>
 </body>
 </html>
