@@ -10,7 +10,8 @@
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap');
-        :root { --gold: #e5a999; --glass: rgba(255, 255, 255, 0.05); --bg: #0b0f19; }
+        /* تم تعزيز الألوان الزجاجية هنا فقط */
+        :root { --gold: #e5a999; --glass: rgba(255, 255, 255, 0.08); --bg: #0b0f19; }
         
         body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: #fff; margin: 0; padding: 0; display: flex; justify-content: center; min-height: 100vh; }
         .container { width: 100%; max-width: 500px; padding: 20px; box-sizing: border-box; }
@@ -19,48 +20,62 @@
         .header img { width: 95px; border-radius: 50%; border: 2px solid var(--gold); padding: 5px; box-shadow: 0 0 20px rgba(229, 169, 153, 0.3); }
         .header h1 { font-size: 1.8em; font-weight: 900; color: var(--gold); margin-top: 15px; }
 
+        /* تم تطبيق مظهر الزجاج العصري (Glassmorphism) باحترافية */
         .glass-card { 
-            background: var(--glass); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255,255,255,0.1); border-radius: 35px; 
+            background: var(--glass); 
+            backdrop-filter: blur(25px); 
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255,255,255,0.05); 
+            border-top: 1px solid rgba(255,255,255,0.2); /* لمعة زجاجية علوية */
+            border-left: 1px solid rgba(255,255,255,0.1); /* لمعة زجاجية جانبية */
+            border-radius: 35px; 
             padding: 30px; text-align: center; margin-bottom: 25px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4); animation: fadeIn 1s ease;
+            box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37); /* ظل زجاجي عميق */
+            animation: fadeIn 1s ease;
         }
 
         input, select { 
             width: 100%; padding: 18px; margin: 12px 0; border-radius: 18px; 
-            border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            background: rgba(255,255,255,0.05); 
             color: #fff; font-family: inherit; box-sizing: border-box; outline: none; transition: 0.3s;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); /* تأثير العمق للإدخال */
         }
+        
+        input:focus, select:focus { border-color: var(--gold); background: rgba(255,255,255,0.08); }
 
         .btn-main { 
             width: 100%; padding: 20px; border: none; border-radius: 20px; 
             background: linear-gradient(135deg, #d48b7a 0%, var(--gold) 100%); 
             color: #0b0f19; font-weight: 900; font-size: 1.1em; cursor: pointer; transition: 0.4s ease;
+            box-shadow: 0 4px 15px rgba(229, 169, 153, 0.4);
         }
 
         #results-area { display: none; }
         .result-img { width: 100%; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; }
 
         .bmi-badge {
-            background: rgba(229, 169, 153, 0.2); color: var(--gold);
+            background: rgba(229, 169, 153, 0.15); color: var(--gold);
             padding: 10px 20px; border-radius: 15px; display: inline-block;
             margin: 15px 0; font-weight: 900; border: 1px solid var(--gold);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
         .action-tabs { display: flex; gap: 10px; overflow-x: auto; margin: 25px 0; padding-bottom: 12px; scrollbar-width: none; }
         .tab-btn { 
             flex: 1; min-width: 90px; padding: 14px 10px; border-radius: 18px; 
-            border: 1px solid rgba(255,255,255,0.1); background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03);
             color: rgba(255,255,255,0.7); cursor: pointer; font-weight: 700; transition: 0.3s;
         }
-        .tab-btn.active { background: var(--gold); color: #0b0f19; border-color: var(--gold); }
+        .tab-btn.active { background: var(--gold); color: #0b0f19; border-color: var(--gold); box-shadow: 0 0 10px rgba(229, 169, 153, 0.3); }
 
         .service-panel { display: none; text-align: right; animation: slideUp 0.6s ease; }
         .service-panel h4 { color: var(--gold); font-size: 1.3em; margin-bottom: 15px; border-right: 3px solid var(--gold); padding: 0 10px; }
 
         .program-box { 
-            background: rgba(0,0,0,0.3); border-radius: 20px; padding: 20px; margin-top: 15px; 
+            background: rgba(0,0,0,0.25); border-radius: 20px; padding: 20px; margin-top: 15px; 
             text-align: right; border-left: 4px solid var(--gold); 
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
         }
         .program-box ul { padding-right: 20px; margin: 10px 0; }
         .program-box li { margin-bottom: 8px; font-size: 0.95em; }
@@ -206,26 +221,44 @@
         btn.classList.add('active');
     }
 
+    /* التعديلات الدقيقة والاحترافية تمت هنا فقط بناءً على طلبك */
     function runFashion() {
         const style = document.getElementById('fashionType').value;
-        let res = `<div class="program-box"><b>📋 كود الأناقة المحترف:</b><ul>`;
-        res += user.h >= 168 ? "<li>التوازن: اعتمدي القصات الطويلة.</li>" : "<li>التوازن: اعتمدي الخصر العالي.</li>";
-        res += `</ul><span class="read-more" onclick="showMore(this)">✨ قراءة المزيد...</span><div class="extra-content">بما أن طولكِ ${user.h} سم، فإن اختيار اللون الموحد سيعطيكِ فخامة كبرى.</div></div>`;
+        let res = `<div class="program-box"><b>📋 كود الأناقة الاحترافي:</b><ul>`;
+        res += user.h >= 168 
+            ? "<li><b>التناسب الهندسي:</b> لكونكِ طويلة، استغلي القصات الطويلة (Maxi) والكتل اللونية (Color Blocking) لإبراز شموخكِ.</li>" 
+            : "<li><b>التناسب الهندسي:</b> لكونكِ رقيقة، اعتمدي الخصر العالي (High-Waist) واللون الموحد (Monochrome) لإعطاء إيحاء بطول الساقين.</li>";
+        res += `</ul><span class="read-more" onclick="showMore(this)">✨ قراءة المزيد...</span><div class="extra-content">السر في الموضة هو "النسبة والتناسب". استخدمي الخطوط العمودية والأقمشة الانسيابية لتوجيه النظر دائماً نحو أجمل ملامح قوامكِ بناءً على شكل جسمكِ.</div></div>`;
         document.getElementById('fashionRes').innerHTML = res;
     }
 
     function runNutri() {
-        const bmr = Math.round((10 * user.w) + (6.25 * user.h) - 161);
-        const p = Math.round(user.w * 1.8);
-        document.getElementById('nutriRes').innerHTML = `<div class="program-box"><b>📊 برنامج الماكروز:</b><ul><li>السعرات: ${bmr} kcal</li><li>البروتين: ${p}g</li></ul><span class="read-more" onclick="showMore(this)">🍏 تفاصيل الوجبات...</span><div class="extra-content">مع BMI يساوي ${user.bmi}، ركزي على الألياف لزيادة الشبع.</div></div>`;
+        const goal = document.getElementById('nutriGoal').value;
+        let bmr = Math.round((10 * user.w) + (6.25 * user.h) - 161);
+        bmr = goal === 'lose' ? bmr - 400 : bmr + 250; // حساب عجز أو فائض السعرات
+        
+        // حساب الماكروز علمياً الدقيق
+        const p = Math.round(user.w * 1.8); // 1.8g لكل كيلو (بروتين)
+        const f = Math.round(user.w * 0.8); // 0.8g لكل كيلو (دهون)
+        const c_calories = bmr - ((p * 4) + (f * 9)); 
+        const c = Math.round(c_calories > 0 ? c_calories / 4 : 0); // الباقي كربوهيدرات
+
+        document.getElementById('nutriRes').innerHTML = `<div class="program-box"><b>📊 توزيع الماكروز (Macros):</b><ul><li><b>السعرات الهدف:</b> ${bmr} kcal</li><li><b>البروتين:</b> ${p}g (لبناء العضل)</li><li><b>الكربوهيدرات:</b> ${c}g (للطاقة)</li><li><b>الدهون الصحية:</b> ${f}g (للتوازن الهرموني)</li></ul><span class="read-more" onclick="showMore(this)">🍏 التفاصيل الأيضية...</span><div class="extra-content">هذه الأرقام مبنية على معادلة "Mifflin-St Jeor". مع مؤشر (BMI: ${user.bmi})، تأكدي من تناول الألياف لتنظيم سكر الدم وتوزيع البروتين على وجباتك لتحفيز الاستشفاء العضلي.</div></div>`;
     }
 
     function runFit() {
-        document.getElementById('fitRes').innerHTML = `<div class="program-box"><b>🏋️ جدول النحت:</b><ul><li>تمرين مقاومة مركّز</li><li>كارديو حرق دهون</li></ul><span class="read-more" onclick="showMore(this)">🔥 نصائح المدرب...</span><div class="extra-content">التزمي بـ 3 حصص أسبوعياً للحصول على نتائج مبهرة.</div></div>`;
+        const place = document.getElementById('fitPlace').value;
+        let res = `<div class="program-box"><b>🏋️ البرنامج التدريبي العلمي:</b><ul>`;
+        res += place === 'gym' 
+            ? "<li><b>المقاومة:</b> تمارين مركبة (Squats, Deadlifts) لبناء قاعدة قوية.</li><li><b>العزل:</b> تمارين تركيز للمنحنيات (Glutes & Core).</li><li><b>القلب:</b> 20 دقيقة كارديو (HIIT) مرتين أسبوعياً.</li>" 
+            : "<li><b>المقاومة:</b> تدريب بوزن الجسم وأربطة المقاومة (Bands).</li><li><b>المرونة:</b> بيلاتس لنحت الخصر وتقوية الجذع.</li><li><b>القلب:</b> 15 دقيقة تمارين قلبية مكثفة بالمنزل.</li>";
+        res += `</ul><span class="read-more" onclick="showMore(this)">🔥 نصيحة رياضية...</span><div class="extra-content">السر الأهم في التدريب هو الزيادة التدريجية (Progressive Overload)، زيدي المقاومة أو التكرارات تدريجياً لضمان عدم ثبات النتائج.</div></div>`;
+        document.getElementById('fitRes').innerHTML = res;
     }
 
     function runHealth() {
-        document.getElementById('healthRes').innerHTML = `<div class="program-box"><b>🩺 الفحص الحيوي:</b><ul><li>BMI المحسوب: ${user.bmi}</li><li>الماء المطلوب: ${(user.w * 0.033).toFixed(1)} لتر</li></ul><span class="read-more" onclick="showMore(this)">🩺 قراءة التقرير...</span><div class="extra-content">مؤشر ${user.bmi} يتطلب توازناً غذائياً دقيقاً للحفاظ على حيوية بشرتكِ.</div></div>`;
+        let bmiCat = user.bmi < 18.5 ? "نقص وزن" : user.bmi < 25 ? "وزن مثالي" : user.bmi < 30 ? "زيادة وزن" : "سمنة";
+        document.getElementById('healthRes').innerHTML = `<div class="program-box"><b>🩺 الفحص الحيوي الشامل:</b><ul><li><b>تصنيف الـ BMI:</b> ${user.bmi} (${bmiCat})</li><li><b>الاحتياج المائي:</b> ${(user.w * 0.033).toFixed(1)} لتر / يومياً للترطيب الخلوي.</li></ul><span class="read-more" onclick="showMore(this)">🩺 قراءة التقرير الطبي...</span><div class="extra-content">مؤشر كتلة الجسم هو قياس أولي. التركيز الأعمق يجب أن يكون على جودة نومك (7-8 ساعات) وإدارة التوتر للسيطرة على هرمون الكورتيزول، وهو الأساس لمنع تخزين الدهون العنيدة.</div></div>`;
     }
 
     function showMore(el) {
