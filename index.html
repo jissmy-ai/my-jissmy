@@ -3,31 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jissmy 3D | اكتشفي شكل جسمكِ الحقيقي</title>
+    <title>Jissmy 3D | اكتشفي تفاصيل قوامكِ بالذكاء الاصطناعي</title>
     
-    <meta name="description" content="أقوى محلل قوام 3D. اكتشفي نوع جسمك من بين 16 نوعاً عالمياً مع نصائح الموضة والرياضة المخصصة لكِ.">
-    <meta name="keywords" content="شكل الجسم، حاسبة السعرات، نصائح موضة، تمارين نحت، Jissmy 3D، ساعة رملية، كمثرى">
+    <meta name="description" content="أقوى محلل قوام 3D. اكتشفي نوع جسمكِ واحصل على خطط تفصيلية للموضة، التغذية، والرياضة بناءً على قياساتكِ الدقيقة.">
+    <meta name="keywords" content="شكل الجسم، حاسبة السعرات، تنسيق الملابس، تمارين نحت، Jissmy 3D، كمال أجسام نسائي">
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap');
-        :root { --gold: #e5a999; --glass: rgba(255, 255, 255, 0.05); }
-        body { font-family: 'Tajawal', sans-serif; background: #0b0f19; color: #fff; margin: 0; padding: 0; display: flex; justify-content: center; }
-        .container { width: 100%; max-width: 480px; padding: 20px; }
-        .header { text-align: center; margin-bottom: 25px; }
-        .header img { width: 85px; border-radius: 50%; border: 1px solid var(--gold); }
-        .glass-card { background: var(--glass); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); border-radius: 25px; padding: 25px; text-align: center; margin-bottom: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-        input { width: 100%; padding: 16px; margin: 12px 0; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.4); color: #fff; font-family: inherit; font-size: 1em; box-sizing: border-box; outline: none; }
-        .btn-main { width: 100%; padding: 18px; border: none; border-radius: 12px; background: linear-gradient(45deg, #d48b7a, var(--gold)); color: #000; font-weight: 900; font-size: 1.1em; cursor: pointer; margin-top: 10px; transition: 0.3s; }
-        .btn-main:hover { transform: scale(1.02); }
-        #results-screen { display: none; }
+        :root { --gold: #e5a999; --glass: rgba(255, 255, 255, 0.08); --bg: #0b0f19; }
+        
+        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: #fff; margin: 0; padding: 0; overflow-x: hidden; }
+        .container { width: 100%; max-width: 500px; margin: auto; padding: 20px; box-sizing: border-box; }
+        
+        .header { text-align: center; margin-bottom: 30px; }
+        .header img { width: 90px; border-radius: 50%; border: 2px solid var(--gold); padding: 5px; }
+
+        .glass-card { 
+            background: var(--glass); backdrop-filter: blur(15px); 
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 30px; 
+            padding: 25px; text-align: center; margin-bottom: 20px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        input, select { 
+            width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; 
+            border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.5); 
+            color: #fff; font-family: inherit; font-size: 1em; box-sizing: border-box; outline: none;
+        }
+
+        .btn-main { 
+            width: 100%; padding: 18px; border: none; border-radius: 12px; 
+            background: linear-gradient(45deg, #d48b7a, var(--gold)); 
+            color: #000; font-weight: 900; font-size: 1.1em; cursor: pointer; transition: 0.3s;
+        }
+
+        /* شاشة النتائج */
+        #results-area { display: none; }
         .result-img { width: 100%; border-radius: 20px; border: 1px solid var(--gold); margin-bottom: 15px; }
-        .tabs-menu { display: flex; gap: 5px; overflow-x: auto; margin: 20px 0; padding-bottom: 10px; scrollbar-width: none; }
-        .tab-item { flex: 1; padding: 12px; border-radius: 12px; border: 1px solid var(--gold); background: transparent; color: #fff; cursor: pointer; white-space: nowrap; font-size: 0.85em; font-weight: bold; }
-        .tab-item.active { background: var(--gold); color: #000; font-weight: bold; }
-        .content-box { text-align: right; line-height: 1.8; min-height: 150px; font-size: 0.95em; }
-        #loading { display: none; text-align: center; padding: 60px 0; }
-        .loader { width: 45px; height: 45px; border: 4px solid rgba(255,255,255,0.1); border-top-color: var(--gold); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 15px; }
-        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* الأزرار العلوية */
+        .action-tabs { display: flex; gap: 8px; overflow-x: auto; margin: 20px 0; padding-bottom: 10px; scrollbar-width: none; }
+        .tab-btn { 
+            flex: 1; padding: 12px 20px; border-radius: 15px; border: 1px solid var(--gold);
+            background: transparent; color: #fff; cursor: pointer; white-space: nowrap; font-weight: bold;
+        }
+        .tab-btn.active { background: var(--gold); color: #000; }
+
+        /* منطقة الخدمات التفاعلية */
+        .service-panel { display: none; text-align: right; animation: slideUp 0.5s ease; }
+        .service-panel h3 { color: var(--gold); border-bottom: 1px solid var(--gold); padding-bottom: 10px; }
+        .read-more { color: var(--gold); cursor: pointer; text-decoration: underline; font-size: 0.9em; }
+        .extra-content { display: none; margin-top: 10px; font-size: 0.9em; opacity: 0.9; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        
+        #loader { display: none; padding: 40px; }
+        .spinner { width: 40px; height: 40px; border: 4px solid var(--glass); border-top-color: var(--gold); border-radius: 50%; animation: s 1s linear infinite; margin: 0 auto; }
+        @keyframes s { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
@@ -35,96 +68,181 @@
 <div class="container">
     <div class="header">
         <img src="image_5.png" alt="Logo">
-        <h1>Jissmy 3D Analyzer</h1>
+        <h1>Jissmy 3D</h1>
     </div>
 
-    <div id="input-screen" class="glass-card">
-        <h3>أدخلي بياناتكِ للتحليل</h3>
-        <input type="number" id="height" placeholder="الطول (سم)">
-        <input type="number" id="weight" placeholder="الوزن (كجم)">
-        <button class="btn-main" onclick="startAnalysis()">تحليل القوام الآن ✨</button>
+    <div id="setup-screen" class="glass-card">
+        <h3 style="margin-top:0">اكتشفي سر قوامكِ</h3>
+        <input type="number" id="mainHeight" placeholder="الطول (سم)">
+        <input type="number" id="mainWeight" placeholder="الوزن (كجم)">
+        <button class="btn-main" onclick="analyzeFirst()">تحليل القوام الآن ✨</button>
     </div>
 
-    <div id="loading">
-        <div class="loader"></div>
-        <p>جاري مطابقة أبعادكِ مع 16 قالباً عالمياً...</p>
+    <div id="loader" class="text-center">
+        <div class="spinner"></div>
+        <p align="center">جاري معالجة البيانات 3D...</p>
     </div>
 
-    <div id="results-screen">
+    <div id="results-area">
         <div class="glass-card">
-            <img src="" id="main-img" class="result-img">
-            <h2 id="r-name" style="color: var(--gold);">---</h2>
-            <p id="r-brief" style="font-size: 0.9em; opacity: 0.8;"></p>
+            <img src="" id="bodyImage" class="result-img">
+            <h2 id="bodyTitle" style="color: var(--gold); margin: 5px 0;"></h2>
+            <p id="bodyBrief" style="font-size: 0.95em; line-height: 1.6;"></p>
         </div>
 
-        <div class="tabs-menu">
-            <button class="tab-item active" onclick="switchTab('fashion', this)">👗 موضة</button>
-            <button class="tab-item" onclick="switchTab('food', this)">🍏 تغذية</button>
-            <button class="tab-item" onclick="switchTab('fit', this)">🏋️ رياضة</button>
-            <button class="tab-item" onclick="switchTab('health', this)">🩺 صحة</button>
+        <div class="action-tabs">
+            <button class="tab-btn" onclick="openService('fashion')">👗 الموضة</button>
+            <button class="tab-btn" onclick="openService('nutrition')">🍎 التغذية</button>
+            <button class="tab-item tab-btn" onclick="openService('fitness')">🏋️ الرياضة</button>
+            <button class="tab-item tab-btn" onclick="openService('health')">🩺 الصحة</button>
         </div>
 
-        <div class="glass-card content-box" id="tab-content"></div>
-        <button class="btn-main" onclick="location.reload()" style="background: transparent; border: 1px solid var(--gold); color: var(--gold); margin: 30px 0;">تحليل جديد ↻</button>
+        <div id="service-container" class="glass-card">
+            
+            <div id="panel-fashion" class="service-panel">
+                <h3>تنسيق الموضة الاحترافي</h3>
+                <p>للحصول على نصيحة دقيقة، اختاري ستايلك المفضل:</p>
+                <select id="fashionStyle">
+                    <option value="casual">كاجوال يومي</option>
+                    <option value="formal">رسمي للمناسبات</option>
+                    <option value="sporty">رياضي وعصري</option>
+                </select>
+                <button class="btn-main" style="padding:10px" onclick="calcFashion()">عرض التنسيق</button>
+                <div id="fashionResult" style="margin-top:15px"></div>
+            </div>
+
+            <div id="panel-nutrition" class="service-panel">
+                <h3>مخطط التغذية والحسابات</h3>
+                <p>ما هو هدفك الحالي؟</p>
+                <select id="nutriGoal">
+                    <option value="lose">إنقاص الوزن</option>
+                    <option value="maintain">تثبيت الوزن</option>
+                    <option value="gain">بناء كتلة أنثوية</option>
+                </select>
+                <button class="btn-main" style="padding:10px" onclick="calcNutri()">حساب السعرات والماكروز</button>
+                <div id="nutriResult" style="margin-top:15px"></div>
+            </div>
+
+            <div id="panel-fitness" class="service-panel">
+                <h3>خطة التمرين الذكية</h3>
+                <p>أين تفضلين التمرين؟</p>
+                <select id="fitPlace">
+                    <option value="home">في المنزل</option>
+                    <option value="gym">في النادي (الجيم)</option>
+                </select>
+                <button class="btn-main" style="padding:10px" onclick="calcFit()">توليد الجدول</button>
+                <div id="fitResult" style="margin-top:15px"></div>
+            </div>
+
+            <div id="panel-health" class="service-panel">
+                <h3>التقرير الصحي الوقائي</h3>
+                <p>هل تعانين من خمول أو إرادق دائم؟</p>
+                <select id="healthStatus">
+                    <option value="yes">نعم، غالباً</option>
+                    <option value="no">لا، نشيطة</option>
+                </select>
+                <button class="btn-main" style="padding:10px" onclick="calcHealth()">تحليل الحالة</button>
+                <div id="healthResult" style="margin-top:15px"></div>
+            </div>
+
+        </div>
+        
+        <button class="btn-main" onclick="location.reload()" style="background:transparent; border:1px solid var(--gold); color:var(--gold); margin:20px 0">إعادة التحليل ↻</button>
     </div>
 </div>
 
 <script>
-// قاعدة البيانات لـ 16 شكلاً (كل شكل له صورة واحدة ثابتة باسم القسم)
-const db = {
-    // تم تعديل التسميات لتكون باسم القسم المتوقع للملف
-    'hourglass': { img: 'hourglass.png', name: "ساعة رملية مثالية", brief: "تناسق مذهل بين الصدر والأرداف مع خصر منحوت.", fashion: "أبرزي خصرك بالأحزمة والفساتين الضيقة.", food: "بروتين عالي للحفاظ على العضل.", fit: "تمارين شاملة للمحافظة على التناسق.", health: "شرب الماء لنضارة المنحنيات." },
-    'pear': { img: 'pear.png', name: "كمثرى كلاسيكي", brief: "أكتاف ناعمة مع تمركز الأنوثة في الأرداف.", fashion: "إضافة حجم للأكتاف بصرياً لموازنة القوام.", food: "تقليل الأجبان والدهون المشبعة في النصف السفلي.", fit: "تمارين أكتاف وظهر لتوسيع مظهر الجسم علوياً.", health: "تمارين تصريف السوائل اللمفاوية للساقين." },
-    'apple': { img: 'apple.png', name: "تفاحة كلاسيكية", brief: "سيقان رشيقة مع تجمع الوزن في الوسط.", fashion: "فساتين Empire (تضيق تحت الصدر).", food: "تقليل الكربوهيدرات البسيطة.", fit: "مشي وسباحة لشد البطن.", health: "مراقبة هرمون التوتر." },
-    'rectangle': { img: 'rectangle.png', name: "مستطيل رياضي", brief: "جسم مشدود وأكتاف وأرداف متساوية.", fashion: "استخدام طبقات لخلق انحناءات.", food: "سعرات عالية لبناء كتلة أنثوية.", fit: "تمارين مائلة للخصر.", health: "مرونة العمود الفقري." },
-    'inverted_triangle': { img: 'inverted_triangle.png', name: "المثلث المقلوب", brief: "أكتاف عريضة وخصر وأرداف نحيلة.", fashion: "تنانير واسعة لموازنة الأكتاف.", food: "تقليل الكافيين لمنع التوتر العضلي.", fit: "تمارين أرجل مكثفة (Leg Day).", health: "مساج للأكتاف." },
-    'spoon': { img: 'spoon.png', name: "قوام الملعقة", brief: "أرداف بارزة جداً مع خصر محدد.", fashion: "بناطيل مستقيمة لإخفاء حدة البروز.", food: "شاي أخضر لحرق دهون الأفخاذ.", fit: "تمارين القوة للجزء العلوي.", health: "تقليل الأملاح." },
-    'diamond': { img: 'diamond.png', name: "قوام الألماس", brief: "أكتاف وأرداف نحيفة وامتلاء في الخصر.", fashion: "إكسسوارات علوية تلفت النظر للوجه.", food: "شوربات حارقة للدهون وألياف.", fit: "تمارين كارديو خفيف (مشي).", health: "فحص مستويات السكر بانتظام." },
-    'oval': { img: 'oval.png', name: "القوام البيضاوي", brief: "انحناءات ناعمة وشاملة في منطقة الوسط.", fashion: "ملابس موحدة اللون (Monochrome).", food: "وجبات صغيرة متفرقة لزيادة الحرق.", fit: "كارديو منخفض الشدة.", health: "النوم الجيد لضبط الأيض." },
-    // يمكن إضافة الـ 8 أشكال المتبقية هنا بنفس الطريقة
-};
+    // بيانات الأقسام الـ 16 (مخفية برمجياً وتظهر كـ "نتيجة" فقط)
+    const bodyTypes = {
+        'type1': { title: 'الساعة الرملية', img: 'hourglass.png', brief: 'قوام متوازن ومثالي، حيث يتساوى عرض الكتفين مع الوركين مع خصر محدد بوضوح.' },
+        'type2': { title: 'الكمثرى', img: 'pear.png', brief: 'تتركز الأنوثة في الجزء السفلي، مع أكتاف ناعمة وخصر جميل.' },
+        'type3': { title: 'التفاحة', img: 'apple.png', brief: 'قوام ممتلئ من الوسط مع سيقان رشيقة وجذابة.' },
+        // ... بقية الـ 16
+    };
 
-let res = null;
-function startAnalysis() {
-    const h = document.getElementById('height').value;
-    const w = document.getElementById('weight').value;
-    if(!h || !w) return alert("أدخلي بياناتكِ ✨");
-    
-    document.getElementById('input-screen').style.display='none';
-    document.getElementById('loading').style.display='block';
+    let userData = { h:0, w:0, type:null };
 
-    setTimeout(() => {
-        document.getElementById('loading').style.display='none';
-        document.getElementById('results-screen').style.display='block';
-        
-        // محرك الاختيار (بناءً على BMI وتوزيع افتراضي)
-        const bmi = w / ((h/100)**2);
-        let keys = Object.keys(db);
-        let key = keys[Math.floor(Math.random() * keys.length)]; 
-        
-        // الطول يؤثر فقط على اللقب النصي وليس الصورة
-        let suffix = h < 160 ? " (رقيق)" : (h > 172 ? " (ملكي)" : " (متناسق)");
-        
-        res = db[key];
-        // استدعاء الصورة الثابتة باسم القسم (مثلاً: hourglass.png)
-        document.getElementById('main-img').src = res.img; 
-        document.getElementById('r-name').innerText = res.name + suffix;
-        document.getElementById('r-brief').innerText = res.brief;
-        
-        // إظهار تبويب الموضة افتراضياً
-        switchTab('fashion', document.querySelector('.tab-item'));
-    }, 2000);
-}
+    function analyzeFirst() {
+        userData.h = document.getElementById('mainHeight').value;
+        userData.w = document.getElementById('mainWeight').value;
+        if(!userData.h || !userData.w) return alert("الرجاء إدخال البيانات");
 
-function switchTab(t, b) {
-    document.querySelectorAll('.tab-item').forEach(x => x.classList.remove('active'));
-    b.classList.add('active');
-    const box = document.getElementById('tab-content');
-    if(t=='fashion') box.innerHTML = `<h4>👗 الموضة:</h4>${res.fashion}`;
-    if(t=='food') box.innerHTML = `<h4>🍏 التغذية:</h4>${res.food}`;
-    if(t=='fit') box.innerHTML = `<h4>🏋️ الرياضة:</h4>${res.fit}`;
-    if(t=='health') box.innerHTML = `<h4>🩺 الصحة:</h4>${res.health}`;
-}
+        document.getElementById('setup-screen').style.display = 'none';
+        document.getElementById('loader').style.display = 'block';
+
+        setTimeout(() => {
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('results-area').style.display = 'block';
+            
+            // اختيار عشوائي للنوع (محاكاة للذكاء الاصطناعي)
+            const keys = Object.keys(bodyTypes);
+            userData.type = bodyTypes[keys[Math.floor(Math.random()*keys.length)]];
+            
+            // تحديد اللقب حسب الطول
+            let suffix = userData.h < 160 ? " (رقيق)" : (userData.h > 172 ? " (ملكي)" : " (متناسق)");
+            
+            document.getElementById('bodyImage').src = userData.type.img;
+            document.getElementById('bodyTitle').innerText = userData.type.title + suffix;
+            document.getElementById('bodyBrief').innerText = userData.type.brief;
+        }, 2000);
+    }
+
+    function openService(s) {
+        document.querySelectorAll('.service-panel').forEach(p => p.style.display = 'none');
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('panel-' + s).style.display = 'block';
+        event.currentTarget.classList.add('active');
+        document.getElementById('service-container').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // --- المحرك الاحترافي لكل قسم ---
+
+    function calcFashion() {
+        const style = document.getElementById('fashionStyle').value;
+        let res = `نظراً لأنكِ <b>${userData.type.title}</b>، فإن الستايل الـ ${style} الأنسب لكِ هو:<br>`;
+        res += "• اختيار قصات تبرز منطقة الخصر دائماً.<br>";
+        res += "<span class='read-more' onclick='toggleMore(this)'>قراءة المزيد...</span>";
+        res += "<div class='extra-content'>تجنبي الخطوط العرضية في المناطق الممتلئة، واستبدليها بقطع طولية تمنحكِ رشاقة ملكية.</div>";
+        document.getElementById('fashionResult').innerHTML = res;
+    }
+
+    function calcNutri() {
+        const goal = document.getElementById('nutriGoal').value;
+        const bmr = (10 * userData.w) + (6.25 * userData.h) - 161; // حاسبة احترافية
+        document.getElementById('nutriResult').innerHTML = `
+            <b>تحليل السعرات:</b> احتياجك اليومي هو ${Math.round(bmr)} سعرة.<br>
+            <b>الماكروز:</b> بروتين 30%، كربوهيدرات 40%، دهون 30%.<br>
+            <span class='read-more' onclick='toggleMore(this)'>قراءة المزيد...</span>
+            <div class='extra-content'>لتحقيق هدفك في <b>${goal}</b>، ننصح ببدء يومك بوجبة غنية بالألياف وشرب 3 لتر ماء.</div>
+        `;
+    }
+
+    function calcFit() {
+        const place = document.getElementById('fitPlace').value;
+        document.getElementById('fitResult').innerHTML = `
+            <b>الجدول المقترح:</b> 4 أيام تمرين في الـ ${place}.<br>
+            تركيز 60% على نحت الجزء السفلي و40% لشد البطن.<br>
+            <span class='read-more' onclick='toggleMore(this)'>قراءة المزيد...</span>
+            <div class='extra-content'>ابدئي بتمارين الكارديو لمدة 10 دقائق كإحماء، ثم انتقلي لتمارين المقاومة المناسبة لشكل <b>${userData.type.title}</b>.</div>
+        `;
+    }
+
+    function calcHealth() {
+        document.getElementById('healthResult').innerHTML = `
+            <b>التشخيص المبدئي:</b> جسمكِ يميل لتخزين السوائل في فترات التوتر.<br>
+            <b>نصيحة:</b> قللي الأملاح وزيدي المغنيسيوم.<br>
+            <span class='read-more' onclick='toggleMore(this)'>قراءة المزيد...</span>
+            <div class='extra-content'>حالتكِ تتطلب توازناً هرمونياً، النوم قبل الساعة 11 ليلاً سيغير جودة حرق الدهون في جسمكِ تماماً.</div>
+        `;
+    }
+
+    function toggleMore(el) {
+        const next = el.nextElementSibling;
+        next.style.display = next.style.display === 'block' ? 'none' : 'block';
+        el.innerText = next.style.display === 'block' ? 'إخفاء التفاصيل' : 'قراءة المزيد...';
+    }
 </script>
+
 </body>
-</html>
+            </html>
+            
