@@ -3,64 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jissmy 3D | اكتشفي تفاصيل قوامكِ بالذكاء الاصطناعي</title>
+    <title>Jissmy 3D | المحلل الاحترافي الشامل</title>
     
-    <meta name="description" content="أقوى محلل قوام 3D. اكتشفي نوع جسمكِ واحصل على خطط تفصيلية للموضة، التغذية، والرياضة بناءً على قياساتكِ الدقيقة.">
-    <meta name="keywords" content="شكل الجسم، حاسبة السعرات، تنسيق الملابس، تمارين نحت، Jissmy 3D، كمال أجسام نسائي">
+    <meta name="description" content="أقوى محلل قوام 3D بالذكاء الاصطناعي. اكتشفي شكل جسمكِ واحصل على برامج تغذية ورياضة وموضة مخصصة بالكامل.">
+    <meta name="keywords" content="شكل الجسم، حاسبة السعرات، تنسيق الملابس، تمارين نحت، Jissmy 3D، الماكروز، BMI">
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap');
-        :root { --gold: #e5a999; --glass: rgba(255, 255, 255, 0.08); --bg: #0b0f19; }
+        :root { --gold: #e5a999; --glass: rgba(255, 255, 255, 0.05); --bg: #0b0f19; }
         
-        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: #fff; margin: 0; padding: 0; overflow-x: hidden; }
-        .container { width: 100%; max-width: 500px; margin: auto; padding: 20px; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: #fff; margin: 0; padding: 0; display: flex; justify-content: center; min-height: 100vh; }
+        .container { width: 100%; max-width: 500px; padding: 20px; box-sizing: border-box; }
         
-        .header { text-align: center; margin-bottom: 30px; }
-        .header img { width: 90px; border-radius: 50%; border: 2px solid var(--gold); padding: 5px; }
+        .header { text-align: center; margin-bottom: 40px; }
+        .header img { width: 95px; border-radius: 50%; border: 2px solid var(--gold); padding: 5px; box-shadow: 0 0 20px rgba(229, 169, 153, 0.3); }
+        .header h1 { font-size: 1.8em; font-weight: 900; color: var(--gold); margin-top: 15px; }
 
         .glass-card { 
-            background: var(--glass); backdrop-filter: blur(15px); 
-            border: 1px solid rgba(255,255,255,0.1); border-radius: 30px; 
-            padding: 25px; text-align: center; margin-bottom: 20px;
-            animation: fadeIn 0.8s ease;
+            background: var(--glass); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 35px; 
+            padding: 30px; text-align: center; margin-bottom: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4); animation: fadeIn 1s ease;
         }
 
         input, select { 
-            width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; 
-            border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.5); 
-            color: #fff; font-family: inherit; font-size: 1em; box-sizing: border-box; outline: none;
+            width: 100%; padding: 18px; margin: 12px 0; border-radius: 18px; 
+            border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); 
+            color: #fff; font-family: inherit; box-sizing: border-box; outline: none; transition: 0.3s;
         }
 
         .btn-main { 
-            width: 100%; padding: 18px; border: none; border-radius: 12px; 
-            background: linear-gradient(45deg, #d48b7a, var(--gold)); 
-            color: #000; font-weight: 900; font-size: 1.1em; cursor: pointer; transition: 0.3s;
+            width: 100%; padding: 20px; border: none; border-radius: 20px; 
+            background: linear-gradient(135deg, #d48b7a 0%, var(--gold) 100%); 
+            color: #0b0f19; font-weight: 900; font-size: 1.1em; cursor: pointer; transition: 0.4s ease;
         }
 
-        /* شاشة النتائج */
         #results-area { display: none; }
-        .result-img { width: 100%; border-radius: 20px; border: 1px solid var(--gold); margin-bottom: 15px; }
+        .result-img { width: 100%; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; }
 
-        /* الأزرار العلوية */
-        .action-tabs { display: flex; gap: 8px; overflow-x: auto; margin: 20px 0; padding-bottom: 10px; scrollbar-width: none; }
-        .tab-btn { 
-            flex: 1; padding: 12px 20px; border-radius: 15px; border: 1px solid var(--gold);
-            background: transparent; color: #fff; cursor: pointer; white-space: nowrap; font-weight: bold;
+        .bmi-badge {
+            background: rgba(229, 169, 153, 0.2); color: var(--gold);
+            padding: 10px 20px; border-radius: 15px; display: inline-block;
+            margin: 15px 0; font-weight: 900; border: 1px solid var(--gold);
         }
-        .tab-btn.active { background: var(--gold); color: #000; }
 
-        /* منطقة الخدمات التفاعلية */
-        .service-panel { display: none; text-align: right; animation: slideUp 0.5s ease; }
-        .service-panel h3 { color: var(--gold); border-bottom: 1px solid var(--gold); padding-bottom: 10px; }
-        .read-more { color: var(--gold); cursor: pointer; text-decoration: underline; font-size: 0.9em; }
-        .extra-content { display: none; margin-top: 10px; font-size: 0.9em; opacity: 0.9; }
+        .action-tabs { display: flex; gap: 10px; overflow-x: auto; margin: 25px 0; padding-bottom: 12px; scrollbar-width: none; }
+        .tab-btn { 
+            flex: 1; min-width: 90px; padding: 14px 10px; border-radius: 18px; 
+            border: 1px solid rgba(255,255,255,0.1); background: var(--glass);
+            color: rgba(255,255,255,0.7); cursor: pointer; font-weight: 700; transition: 0.3s;
+        }
+        .tab-btn.active { background: var(--gold); color: #0b0f19; border-color: var(--gold); }
 
+        .service-panel { display: none; text-align: right; animation: slideUp 0.6s ease; }
+        .service-panel h4 { color: var(--gold); font-size: 1.3em; margin-bottom: 15px; border-right: 3px solid var(--gold); padding: 0 10px; }
+
+        .program-box { 
+            background: rgba(0,0,0,0.3); border-radius: 20px; padding: 20px; margin-top: 15px; 
+            text-align: right; border-left: 4px solid var(--gold); 
+        }
+        .program-box ul { padding-right: 20px; margin: 10px 0; }
+        .program-box li { margin-bottom: 8px; font-size: 0.95em; }
+
+        .read-more { color: var(--gold); cursor: pointer; font-size: 0.9em; font-weight: bold; display: inline-block; margin-top: 10px; }
+        .extra-content { display: none; margin-top: 15px; font-size: 0.95em; opacity: 0.85; line-height: 1.8; padding: 10px; border-top: 1px dashed var(--gold); }
+
+        #loader { display: none; text-align: center; padding: 50px; }
+        .spinner { width: 50px; height: 50px; border: 5px solid rgba(229, 169, 153, 0.2); border-top-color: var(--gold); border-radius: 50%; animation: s 1s linear infinite; margin: 0 auto; }
+        @keyframes s { to { transform: rotate(360deg); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        
-        #loader { display: none; padding: 40px; }
-        .spinner { width: 40px; height: 40px; border: 4px solid var(--glass); border-top-color: var(--gold); border-radius: 50%; animation: s 1s linear infinite; margin: 0 auto; }
-        @keyframes s { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
@@ -72,100 +84,102 @@
     </div>
 
     <div id="setup-screen" class="glass-card">
-        <h3 style="margin-top:0">اكتشفي سر قوامكِ</h3>
+        <h3>اكتشفي بُعدكِ الثالث ✨</h3>
         <input type="number" id="mainHeight" placeholder="الطول (سم)">
         <input type="number" id="mainWeight" placeholder="الوزن (كجم)">
-        <button class="btn-main" onclick="analyzeFirst()">تحليل القوام الآن ✨</button>
+        
+        <label style="display: block; text-align: right; font-size: 0.85em; margin-top: 10px; color: var(--gold);">اختاري شكل جسمكِ المبدئي:</label>
+        <select id="initialShape">
+            <option value="hourglass">ساعة رملية (متناسق)</option>
+            <option value="pear">كمثرى (ممتلئ من الأسفل)</option>
+            <option value="apple">تفاحة (ممتلئ من الوسط)</option>
+            <option value="rectangle">مستطيل (رياضي/عادي)</option>
+        </select>
+        
+        <button class="btn-main" onclick="analyzeFirst()" style="margin-top: 10px;">بدء التحليل الرقمي 🧬</button>
     </div>
 
-    <div id="loader" class="text-center">
-        <div class="spinner"></div>
-        <p align="center">جاري معالجة البيانات 3D...</p>
-    </div>
+    <div id="loader"><div class="spinner"></div><p style="margin-top:20px; color:var(--gold);">جاري معالجة الـ 16 بعداً حيوياً...</p></div>
 
     <div id="results-area">
         <div class="glass-card">
             <img src="" id="bodyImage" class="result-img">
-            <h2 id="bodyTitle" style="color: var(--gold); margin: 5px 0;"></h2>
-            <p id="bodyBrief" style="font-size: 0.95em; line-height: 1.6;"></p>
+            <h2 id="bodyTitle" style="color:var(--gold);"></h2>
+            <div id="bmiDisplay" class="bmi-badge"></div>
+            <p id="bodyBrief" style="line-height:1.8;"></p>
         </div>
 
         <div class="action-tabs">
-            <button class="tab-btn" onclick="openService('fashion')">👗 الموضة</button>
-            <button class="tab-btn" onclick="openService('nutrition')">🍎 التغذية</button>
-            <button class="tab-item tab-btn" onclick="openService('fitness')">🏋️ الرياضة</button>
-            <button class="tab-item tab-btn" onclick="openService('health')">🩺 الصحة</button>
+            <button class="tab-btn active" onclick="openService('fashion', this)">👗 موضة</button>
+            <button class="tab-btn" onclick="openService('nutrition', this)">🍏 تغذية</button>
+            <button class="tab-btn" onclick="openService('fitness', this)">🏋️ رياضة</button>
+            <button class="tab-btn" onclick="openService('health', this)">🩺 صحة</button>
         </div>
 
         <div id="service-container" class="glass-card">
-            
-            <div id="panel-fashion" class="service-panel">
-                <h3>تنسيق الموضة الاحترافي</h3>
-                <p>للحصول على نصيحة دقيقة، اختاري ستايلك المفضل:</p>
-                <select id="fashionStyle">
-                    <option value="casual">كاجوال يومي</option>
-                    <option value="formal">رسمي للمناسبات</option>
-                    <option value="sporty">رياضي وعصري</option>
-                </select>
-                <button class="btn-main" style="padding:10px" onclick="calcFashion()">عرض التنسيق</button>
-                <div id="fashionResult" style="margin-top:15px"></div>
+            <div id="panel-fashion" class="service-panel" style="display:block">
+                <h4>برنامج المظهر الهندسي</h4>
+                <select id="fashionType"><option value="daily">إطلالة عملية</option><option value="party">سهرة فاخرة</option></select>
+                <button class="btn-main" onclick="runFashion()">توليد كود الأناقة</button>
+                <div id="fashionRes"></div>
             </div>
 
             <div id="panel-nutrition" class="service-panel">
-                <h3>مخطط التغذية والحسابات</h3>
-                <p>ما هو هدفك الحالي؟</p>
-                <select id="nutriGoal">
-                    <option value="lose">إنقاص الوزن</option>
-                    <option value="maintain">تثبيت الوزن</option>
-                    <option value="gain">بناء كتلة أنثوية</option>
-                </select>
-                <button class="btn-main" style="padding:10px" onclick="calcNutri()">حساب السعرات والماكروز</button>
-                <div id="nutriResult" style="margin-top:15px"></div>
+                <h4>برنامج الأيض الدقيق</h4>
+                <select id="nutriGoal"><option value="lose">نحت (خسارة دهون)</option><option value="build">بناء (منحنيات)</option></select>
+                <button class="btn-main" onclick="runNutri()">حساب الماكروز بالغرام</button>
+                <div id="nutriRes"></div>
             </div>
 
             <div id="panel-fitness" class="service-panel">
-                <h3>خطة التمرين الذكية</h3>
-                <p>أين تفضلين التمرين؟</p>
-                <select id="fitPlace">
-                    <option value="home">في المنزل</option>
-                    <option value="gym">في النادي (الجيم)</option>
-                </select>
-                <button class="btn-main" style="padding:10px" onclick="calcFit()">توليد الجدول</button>
-                <div id="fitResult" style="margin-top:15px"></div>
+                <h4>برنامج التدريب العلمي</h4>
+                <select id="fitPlace"><option value="home">تمرين منزلي</option><option value="gym">تمرين النادي</option></select>
+                <button class="btn-main" onclick="runFit()">توليد جدول التمرين</button>
+                <div id="fitRes"></div>
             </div>
 
             <div id="panel-health" class="service-panel">
-                <h3>التقرير الصحي الوقائي</h3>
-                <p>هل تعانين من خمول أو إرادق دائم؟</p>
-                <select id="healthStatus">
-                    <option value="yes">نعم، غالباً</option>
-                    <option value="no">لا، نشيطة</option>
-                </select>
-                <button class="btn-main" style="padding:10px" onclick="calcHealth()">تحليل الحالة</button>
-                <div id="healthResult" style="margin-top:15px"></div>
+                <h4>تقرير التوازن الحيوي</h4>
+                <button class="btn-main" onclick="runHealth()">تحديث التقرير الصحي</button>
+                <div id="healthRes"></div>
             </div>
-
         </div>
-        
-        <button class="btn-main" onclick="location.reload()" style="background:transparent; border:1px solid var(--gold); color:var(--gold); margin:20px 0">إعادة التحليل ↻</button>
+
+        <button class="btn-main" onclick="location.reload()" style="background:transparent; border:1px solid var(--gold); color:var(--gold); margin:30px 0;">إعادة الفحص ↻</button>
     </div>
 </div>
 
 <script>
-    // بيانات الأقسام الـ 16 (مخفية برمجياً وتظهر كـ "نتيجة" فقط)
-    const bodyTypes = {
-        'type1': { title: 'الساعة الرملية', img: 'hourglass.png', brief: 'قوام متوازن ومثالي، حيث يتساوى عرض الكتفين مع الوركين مع خصر محدد بوضوح.' },
-        'type2': { title: 'الكمثرى', img: 'pear.png', brief: 'تتركز الأنوثة في الجزء السفلي، مع أكتاف ناعمة وخصر جميل.' },
-        'type3': { title: 'التفاحة', img: 'apple.png', brief: 'قوام ممتلئ من الوسط مع سيقان رشيقة وجذابة.' },
-        // ... بقية الـ 16
+    const types = {
+        'hourglass': { title: 'الساعة الرملية', img: 'obese_hourglass.png', 
+            tall: 'طولكِ الشاهق يمنح انحناءات الساعة الرملية لديكِ هيبة ملكية لا تضاهى، فكل سنتيمتر في قامتكِ يبرز تناسق خصركِ المنحوت ويزيدكِ شموخاً وجاذبية تخطف الأنفاس بصمت.',
+            short: 'قامتكِ الرقيقة تمنحكِ سحراً أنثوياً مضاعفاً، حيث تتكثف انحناءات الساعة الرملية في قالب ناعم يفيض بالفتنة والرقة، مما يجعلكِ أيقونة للجمال الكلاسيكي المتناسق بدقة فنان.'
+        },
+        'pear': { title: 'الكمثرى', img: 'obese_pear.png', 
+            tall: 'طولكِ الملحوظ يوزع منحنيات جسدكِ الفاتنة برقيّ مذهل، حيث يبرز وركيكِ الممتلئين بأسلوب انسيابي يمنحكِ قوام العارضات الأرستقراطي، مما يجعل كل خطوة تعكس ثقة ملكية.',
+            short: 'جمالكِ الرقيق يتركز في خصركِ النحيل ومنحنياتكِ السفلى الممتلئة، مما يمنحكِ مظهراً يفيض بالأنوثة الطاغية والجاذبية المركزة التي تمنح قامتكِ حضوراً قوياً ولا يُنسى أبداً.'
+        },
+        'apple': { title: 'التفاحة', img: 'obese_apple.png', 
+            tall: 'طولكِ الفارع يمنح قوامكِ المتألق توازناً فريداً، حيث تسحب قامتكِ العين نحو سيقانكِ الرشيقة والمثيرة، مما يمنح جذعكِ الممتلئ هيبة وجمالاً يجمع بين القوة والأنوثة في آن واحد.',
+            short: 'قامتكِ الناعمة تمنحكِ تدويرة جمالية محببة تفيض بالحيوية، حيث تبرز سيقانكِ الرشيقة كعنصر قوة يكسر حدة الامتلاء في الوسط ويمنحكِ طابعاً أنثوياً مرحاً وجذاباً للغاية.'
+        },
+        'rectangle': { title: 'المستطيل', img: 'obese_rectangle.png', 
+            tall: 'طولكِ الشامخ يمنح قوامكِ الرياضي طابعاً عصرياً يشبه عارضات الأزياء، حيث تتساوى الأكتاف والوركين باستقامة توحي بالثقة والقوة، مما يجعلكِ ملكة الإطلالات العصرية المذهلة.',
+            short: 'قامتكِ الصغيرة تمنح جسدكِ الرياضي تماسكاً وجاذبية فريدة، حيث تبدين كفراشة رشيقة وقوية في آن واحد، مما يمنحكِ سحراً خاصاً يجمع بين الرقة والنشاط الدائم.'
+        }
     };
 
-    let userData = { h:0, w:0, type:null };
+    let user = { h:0, w:0, typeKey:'', bmi:0 };
 
     function analyzeFirst() {
-        userData.h = document.getElementById('mainHeight').value;
-        userData.w = document.getElementById('mainWeight').value;
-        if(!userData.h || !userData.w) return alert("الرجاء إدخال البيانات");
+        user.h = document.getElementById('mainHeight').value;
+        user.w = document.getElementById('mainWeight').value;
+        user.typeKey = document.getElementById('initialShape').value;
+        
+        if(!user.h || !user.w) return;
+
+        // حساب BMI الضروري
+        user.bmi = (user.w / ((user.h / 100) ** 2)).toFixed(1);
 
         document.getElementById('setup-screen').style.display = 'none';
         document.getElementById('loader').style.display = 'block';
@@ -174,75 +188,51 @@
             document.getElementById('loader').style.display = 'none';
             document.getElementById('results-area').style.display = 'block';
             
-            // اختيار عشوائي للنوع (محاكاة للذكاء الاصطناعي)
-            const keys = Object.keys(bodyTypes);
-            userData.type = bodyTypes[keys[Math.floor(Math.random()*keys.length)]];
+            const data = types[user.typeKey];
+            const briefContent = user.h >= 168 ? data.tall : data.short;
+            const advice = " فنصيحتي لكِ أن تفتخري بهذا القوام وتبرزي جماله دوماً بثقة واعتزاز.";
             
-            // تحديد اللقب حسب الطول
-            let suffix = userData.h < 160 ? " (رقيق)" : (userData.h > 172 ? " (ملكي)" : " (متناسق)");
-            
-            document.getElementById('bodyImage').src = userData.type.img;
-            document.getElementById('bodyTitle').innerText = userData.type.title + suffix;
-            document.getElementById('bodyBrief').innerText = userData.type.brief;
-        }, 2000);
+            document.getElementById('bodyImage').src = data.img;
+            document.getElementById('bodyTitle').innerText = data.title + (user.h >= 168 ? " الملكي" : " الرقيق");
+            document.getElementById('bmiDisplay').innerText = "مؤشر كتلة جسمكِ (BMI): " + user.bmi;
+            document.getElementById('bodyBrief').innerText = briefContent + advice;
+        }, 1800);
     }
 
-    function openService(s) {
+    function openService(s, btn) {
         document.querySelectorAll('.service-panel').forEach(p => p.style.display = 'none');
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('panel-' + s).style.display = 'block';
-        event.currentTarget.classList.add('active');
-        document.getElementById('service-container').scrollIntoView({ behavior: 'smooth' });
+        btn.classList.add('active');
     }
 
-    // --- المحرك الاحترافي لكل قسم ---
-
-    function calcFashion() {
-        const style = document.getElementById('fashionStyle').value;
-        let res = `نظراً لأنكِ <b>${userData.type.title}</b>، فإن الستايل الـ ${style} الأنسب لكِ هو:<br>`;
-        res += "• اختيار قصات تبرز منطقة الخصر دائماً.<br>";
-        res += "<span class='read-more' onclick='toggleMore(this)'>قراءة المزيد...</span>";
-        res += "<div class='extra-content'>تجنبي الخطوط العرضية في المناطق الممتلئة، واستبدليها بقطع طولية تمنحكِ رشاقة ملكية.</div>";
-        document.getElementById('fashionResult').innerHTML = res;
+    function runFashion() {
+        const style = document.getElementById('fashionType').value;
+        let res = `<div class="program-box"><b>📋 كود الأناقة المحترف:</b><ul>`;
+        res += user.h >= 168 ? "<li>التوازن: اعتمدي القصات الطويلة.</li>" : "<li>التوازن: اعتمدي الخصر العالي.</li>";
+        res += `</ul><span class="read-more" onclick="showMore(this)">✨ قراءة المزيد...</span><div class="extra-content">بما أن طولكِ ${user.h} سم، فإن اختيار اللون الموحد سيعطيكِ فخامة كبرى.</div></div>`;
+        document.getElementById('fashionRes').innerHTML = res;
     }
 
-    function calcNutri() {
-        const goal = document.getElementById('nutriGoal').value;
-        const bmr = (10 * userData.w) + (6.25 * userData.h) - 161; // حاسبة احترافية
-        document.getElementById('nutriResult').innerHTML = `
-            <b>تحليل السعرات:</b> احتياجك اليومي هو ${Math.round(bmr)} سعرة.<br>
-            <b>الماكروز:</b> بروتين 30%، كربوهيدرات 40%، دهون 30%.<br>
-            <span class='read-more' onclick='toggleMore(this)'>قراءة المزيد...</span>
-            <div class='extra-content'>لتحقيق هدفك في <b>${goal}</b>، ننصح ببدء يومك بوجبة غنية بالألياف وشرب 3 لتر ماء.</div>
-        `;
+    function runNutri() {
+        const bmr = Math.round((10 * user.w) + (6.25 * user.h) - 161);
+        const p = Math.round(user.w * 1.8);
+        document.getElementById('nutriRes').innerHTML = `<div class="program-box"><b>📊 برنامج الماكروز:</b><ul><li>السعرات: ${bmr} kcal</li><li>البروتين: ${p}g</li></ul><span class="read-more" onclick="showMore(this)">🍏 تفاصيل الوجبات...</span><div class="extra-content">مع BMI يساوي ${user.bmi}، ركزي على الألياف لزيادة الشبع.</div></div>`;
     }
 
-    function calcFit() {
-        const place = document.getElementById('fitPlace').value;
-        document.getElementById('fitResult').innerHTML = `
-            <b>الجدول المقترح:</b> 4 أيام تمرين في الـ ${place}.<br>
-            تركيز 60% على نحت الجزء السفلي و40% لشد البطن.<br>
-            <span class='read-more' onclick='toggleMore(this)'>قراءة المزيد...</span>
-            <div class='extra-content'>ابدئي بتمارين الكارديو لمدة 10 دقائق كإحماء، ثم انتقلي لتمارين المقاومة المناسبة لشكل <b>${userData.type.title}</b>.</div>
-        `;
+    function runFit() {
+        document.getElementById('fitRes').innerHTML = `<div class="program-box"><b>🏋️ جدول النحت:</b><ul><li>تمرين مقاومة مركّز</li><li>كارديو حرق دهون</li></ul><span class="read-more" onclick="showMore(this)">🔥 نصائح المدرب...</span><div class="extra-content">التزمي بـ 3 حصص أسبوعياً للحصول على نتائج مبهرة.</div></div>`;
     }
 
-    function calcHealth() {
-        document.getElementById('healthResult').innerHTML = `
-            <b>التشخيص المبدئي:</b> جسمكِ يميل لتخزين السوائل في فترات التوتر.<br>
-            <b>نصيحة:</b> قللي الأملاح وزيدي المغنيسيوم.<br>
-            <span class='read-more' onclick='toggleMore(this)'>قراءة المزيد...</span>
-            <div class='extra-content'>حالتكِ تتطلب توازناً هرمونياً، النوم قبل الساعة 11 ليلاً سيغير جودة حرق الدهون في جسمكِ تماماً.</div>
-        `;
+    function runHealth() {
+        document.getElementById('healthRes').innerHTML = `<div class="program-box"><b>🩺 الفحص الحيوي:</b><ul><li>BMI المحسوب: ${user.bmi}</li><li>الماء المطلوب: ${(user.w * 0.033).toFixed(1)} لتر</li></ul><span class="read-more" onclick="showMore(this)">🩺 قراءة التقرير...</span><div class="extra-content">مؤشر ${user.bmi} يتطلب توازناً غذائياً دقيقاً للحفاظ على حيوية بشرتكِ.</div></div>`;
     }
 
-    function toggleMore(el) {
-        const next = el.nextElementSibling;
-        next.style.display = next.style.display === 'block' ? 'none' : 'block';
-        el.innerText = next.style.display === 'block' ? 'إخفاء التفاصيل' : 'قراءة المزيد...';
+    function showMore(el) {
+        const content = el.nextElementSibling;
+        content.style.display = content.style.display === 'block' ? 'none' : 'block';
+        el.innerText = content.style.display === 'block' ? 'إخفاء التفاصيل ⌃' : '✨ قراءة المزيد...';
     }
 </script>
-
 </body>
-            </html>
-            
+</html>
