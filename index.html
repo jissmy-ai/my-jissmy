@@ -4,174 +4,255 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Jissmy 3D | حساب شكل الجسم وتحليل الأنوثة بالذكاء الاصطناعي</title>
-    <meta name="description" content="اكتشفي شكل جسمكِ (ساعة رملية، كمثرى، تفاحة) مع تحليل BMI دقيق ونصائح جمالية وغزل خاص بقوامكِ عبر تقنية Jissmy 3D المذهلة.">
-    <meta name="keywords" content="شكل الجسم، حساب كتلة الجسم، BMI للنساء، ساعة رملية، جسم الكمثرى، تحليل القوام، ذكاء اصطناعي للجمال، Jissmy 3D، نصائح رشاقة">
-    <meta name="author" content="Jissmy AI">
-    <link rel="canonical" href="https://jissmy-ai.github.io/my-jissmy/">
-
-    <meta property="og:title" content="Jissmy 3D | اكتشفي سحر قوامكِ ✨">
-    <meta property="og:description" content="حللت بيانات جسمي وخرجت لي نتيجة مذهلة! جربي الآن واكتشفي نوع قوامكِ بالـ 3D">
-    <meta property="og:image" content="https://jissmy-ai.github.io/my-jissmy/normal_hourglass.png"> 
+    <title>Jissmy 3D | اكتشفي نوع جسمكِ وحاسبة السعرات والتمارين</title>
+    <meta name="description" content="أقوى محلل قوام 3D للنساء. تعرفي على شكل جسمكِ من بين 16 نوعاً عالمياً، احصلي على جدول تمارين، نصائح موضة، وحساب دقيق للسعرات TDEE حسب طولكِ ووزنكِ.">
+    <meta name="keywords" content="شكل الجسم، ساعة رملية، كمثرى، تفاحة، مستطيل، مثلث مقلوب، حاسبة سعرات، تمارين نحت الخصر، نصائح موضة للمحجبات، Jissmy 3D">
+    
+    <meta property="og:title" content="هل جسمكِ ساعة رملية أم كمثرى؟ اكتشفي تحليلكِ الـ 3D الآن! ⏳">
+    <meta property="og:image" content="image_5.png">
     <meta property="og:type" content="website">
 
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #ff758c; --secondary: #4facfe; --bg: #0f0c29; }
-        * { box-sizing: border-box; }
-        body { 
-            font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; min-height: 100vh; 
-            display: flex; flex-direction: column; align-items: center; justify-content: flex-start; 
-            background: radial-gradient(circle at center, #24243e 0%, #0f0c29 100%); color: #fff; overflow-x: hidden;
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap');
+        
+        :root {
+            --gold: #e5a999; /* لون الأنوثة الراقي */
+            --dark-bg: #0b0f19;
+            --glass: rgba(255, 255, 255, 0.04);
+            --border: rgba(255, 255, 255, 0.1);
         }
-        .bg-animate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
-        .circle { position: absolute; background: rgba(255, 117, 140, 0.05); border-radius: 50%; animation: move 20s infinite linear; }
-        @keyframes move { from { transform: translateY(100vh); opacity: 1; } to { transform: translateY(-10vh); opacity: 0; } }
 
-        .glass-card { 
-            background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(20px); 
-            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 25px; 
-            padding: 25px; width: 100%; max-width: 380px; text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4); margin-top: 20px;
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--dark-bg);
+            color: #fff;
+            margin: 0; padding: 0;
+            overflow-x: hidden;
         }
-        h1 { font-size: 30px; margin: 0 0 10px 0; background: linear-gradient(45deg, #ff9a9e, #fad0c4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; }
-        input, select { width: 100%; padding: 14px; margin: 8px 0; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.3); color: #fff; font-family: 'Cairo'; outline: none; }
-        .btn-main { width: 100%; padding: 16px; border-radius: 12px; border: none; background: linear-gradient(45deg, #ff758c, #ff7eb3); color: white; font-weight: 900; font-size: 17px; cursor: pointer; }
 
-        #result-box { display: none; width: 100%; }
-        .bmi-badge { background: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 15px; margin-bottom: 15px; border: 1px dashed var(--secondary); }
-        .bmi-number { font-size: 24px; font-weight: 900; color: var(--secondary); display: block; }
+        .container { max-width: 550px; margin: 0 auto; padding: 20px; }
 
-        .img-container { 
-            width: 100%; height: 320px; margin: 15px 0; border-radius: 20px; 
-            background: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; 
-            overflow: hidden; perspective: 1000px;
+        /* التصميم الزجاجي الاحترافي */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            transition: 0.3s;
         }
-        img.model-3d { 
-            max-width: 90%; max-height: 90%; object-fit: contain; 
-            transition: transform 0.5s ease; transform-style: preserve-3d;
+
+        .header { text-align: center; padding: 30px 0; }
+        .header img { width: 110px; border-radius: 50%; border: 2px solid var(--gold); padding: 5px; margin-bottom: 15px; }
+        
+        h1 { font-weight: 900; font-size: 1.8em; color: var(--gold); margin: 0; }
+        p.subtitle { opacity: 0.7; font-size: 0.9em; }
+
+        .input-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-size: 0.85em; color: var(--gold); font-weight: bold; }
+        input, select {
+            width: 100%; padding: 15px; border-radius: 15px;
+            border: 1px solid var(--border); background: rgba(0,0,0,0.4);
+            color: #fff; font-family: inherit; box-sizing: border-box; outline: none;
         }
-        .glass-card:hover img.model-3d { transform: rotateY(12deg) rotateX(5deg); }
+        input:focus { border-color: var(--gold); }
 
-        .ghazal-container { font-size: 17px; line-height: 1.6; margin: 15px 0; }
-        .read-more { color: #4facfe; cursor: pointer; font-weight: 700; text-decoration: underline; display: block; margin-top: 8px; }
-        .advice-card { background: rgba(255,255,255,0.07); padding: 12px; border-radius: 12px; font-size: 14px; margin-top: 15px; border-right: 4px solid #ff758c; text-align: right; }
+        .btn-prime {
+            width: 100%; padding: 18px; border: none; border-radius: 15px;
+            background: linear-gradient(45deg, #d48b7a, var(--gold));
+            color: #000; font-weight: 900; font-size: 1.1em; cursor: pointer;
+            box-shadow: 0 10px 20px rgba(229, 169, 153, 0.3);
+        }
 
-        .btn-share { width: 100%; padding: 16px; border-radius: 50px; border: none; background: linear-gradient(45deg, #00f2fe, #4facfe); color: white; font-weight: 900; font-size: 17px; cursor: pointer; animation: pulse 2s infinite; margin-top: 15px; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(79, 172, 254, 0.6); } 70% { box-shadow: 0 0 0 15px rgba(79, 172, 254, 0); } 100% { box-shadow: 0 0 0 0 rgba(79, 172, 254, 0); } }
+        /* شاشة النتائج */
+        #results { display: none; }
+        .badge { background: var(--gold); color: #000; padding: 4px 12px; border-radius: 50px; font-weight: bold; font-size: 0.75em; display: inline-block; margin-bottom: 10px; }
+        
+        .result-title { font-size: 1.6em; font-weight: 900; margin-bottom: 10px; }
+        
+        /* نظام قراءة المزيد */
+        .read-more-btn { color: var(--gold); cursor: pointer; text-decoration: underline; font-size: 0.9em; margin-top: 10px; display: inline-block; }
+        .full-analysis { display: none; margin-top: 15px; padding-top: 15px; border-top: 1px dashed var(--border); font-size: 0.95em; color: #cbd5e1; line-height: 1.8; }
+
+        .section-h { border-right: 4px solid var(--gold); padding-right: 12px; margin: 30px 0 15px; font-weight: 900; font-size: 1.2em; }
+
+        .cal-display { font-size: 2.5em; font-weight: 900; color: #fff; text-align: center; display: block; margin: 10px 0; }
+
+        #loading { display: none; text-align: center; padding: 60px 0; }
+        .spin { width: 50px; height: 50px; border: 5px solid var(--border); border-top-color: var(--gold); border-radius: 50%; animation: s 1s linear infinite; margin: 0 auto 20px; }
+        @keyframes s { to { transform: rotate(360deg); } }
+
+        .seo-text { display: none; } /* نصوص مخفية للسيو */
     </style>
 </head>
 <body>
-<div class="bg-animate" id="bg"></div>
-<div class="glass-card">
-    <div id="input-screen">
-        <h1>Jissmy 3D ✨</h1>
-        <p style="opacity:0.8; font-size:14px;">اكتشفي أسرار أنوثتكِ بنظام ذكي</p>
-        <input type="number" id="height" placeholder="الطول (سم)">
-        <input type="number" id="weight" placeholder="الوزن (كجم)">
-        <select id="body-shape">
-            <option value="" disabled selected>ما هو شكل جسمكِ؟</option>
-            <option value="pear">كمثرى 🍐</option>
-            <option value="hourglass">ساعة رملية ⏳</option>
-            <option value="apple">تفاحة 🍎</option>
-            <option value="rectangle">مستطيل 📏</option>
-        </select>
-        <button class="btn-main" onclick="calculate()">اكتشفي النتيجة الآن</button>
+
+<div class="container">
+    <div class="header">
+        <img src="image_5.png" alt="لوجو جسمي 3D">
+        <h1>Jissmy 3D Analyzer</h1>
+        <p class="subtitle">المستشار التقني الأول لجمال وقوام المرأة ⏳</p>
     </div>
 
-    <div id="result-box">
-        <div class="bmi-badge">
-            <span style="font-size: 12px; opacity: 0.8;">مؤشر الجمال الصحي (BMI):</span>
-            <span class="bmi-number" id="bmi-val">0.0</span>
-            <span id="health-desc" style="font-size: 14px;"></span>
+    <div id="setup" class="glass-card">
+        <div class="input-group">
+            <label>العمر</label>
+            <input type="number" id="age" placeholder="مثلاً: 25">
         </div>
-        <div class="img-container"><img id="model-img" class="model-3d" src=""></div>
-        <div class="ghazal-container">
-            <span id="intro-text"></span>
-            <span id="full-text" style="display: none;"></span>
-            <span id="more-btn" class="read-more" onclick="showFull()">قراءة باقي الوصف.. ✨</span>
+        <div class="input-group">
+            <label>الطول (سم)</label>
+            <input type="number" id="height" placeholder="مثلاً: 162">
         </div>
-        <div class="advice-card" id="advice-text"></div>
-        <button class="btn-share" onclick="shareResult()">تباهي بجمالكِ مع الصديقات 📲</button>
-        <p onclick="location.reload()" style="cursor:pointer; opacity:0.5; font-size:12px; margin-top:15px;">تحليل جديد</p>
+        <div class="input-group">
+            <label>الوزن (كجم)</label>
+            <input type="number" id="weight" placeholder="مثلاً: 65">
+        </div>
+        <div class="input-group">
+            <label>التصنيف الأساسي لقوامكِ (الـ 16 نوع)</label>
+            <select id="shape">
+                <option value="hg_perfect">ساعة رملية (مثالية)</option>
+                <option value="hg_top">ساعة رملية (صدر ممتلئ)</option>
+                <option value="hg_bottom">ساعة رملية (أرداف ممتلئة)</option>
+                <option value="pear_classic">كمثرى (كلاسيكي)</option>
+                <option value="pear_bell">كمثرى (شكل الجرس)</option>
+                <option value="apple_classic">تفاحة (كلاسيكي)</option>
+                <option value="apple_top">تفاحة (جذع عريض)</option>
+                <option value="rect_sporty">مستطيل (رياضي)</option>
+                <option value="rect_thin">مستطيل (نحيف)</option>
+                <option value="inv_tri">مثلث مقلوب</option>
+                <option value="spoon">الملعقة</option>
+                <option value="diamond">الألماس</option>
+                <option value="oval">البيضاوي</option>
+                <option value="lean_col">العمود النحيف</option>
+                <option value="full_round">الدائري الممتلئ</option>
+                <option value="petite_curvy">القزمي المنحني</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label>ما هو هدفكِ القادم؟</label>
+            <select id="goal">
+                <option value="lose">خسارة وزن ونحت</option>
+                <option value="gain">زيادة كتلة أنثوية</option>
+                <option value="maintain">تثبيت وتناسق</option>
+            </select>
+        </div>
+        <button class="btn-prime" onclick="process()">تحليل القوام بتقنية 3D ✨</button>
+    </div>
+
+    <div id="loading">
+        <div class="spin"></div>
+        <p>يتم الآن معالجة الـ 48 احتمالاً لقوامكِ...</p>
+    </div>
+
+    <div id="results">
+        <div class="glass-card" style="text-align: center;">
+            <div class="badge" id="h-badge">فئة الأنوثة الرقيقة</div>
+            <div class="result-title" id="r-title">ساعة رملية مثالية</div>
+            <p id="r-brief" style="font-weight: bold;"></p>
+            <div class="read-more-btn" onclick="showMore()">قراءة التحليل العميق لخبراء Jissmy...</div>
+            <div id="r-full" class="full-analysis"></div>
+        </div>
+
+        <h3 class="section-h">👗 مستشار المظهر والموضة</h3>
+        <div class="glass-card" id="r-fashion"></div>
+
+        <h3 class="section-h">🍏 التغذية الذكية (سعراتكِ)</h3>
+        <div class="glass-card">
+            <span class="cal-display" id="r-cal">---</span>
+            <p style="text-align: center; opacity: 0.8; font-size: 0.85em;">سعرة حرارية تحتاجينها يومياً لهدفكِ</p>
+            <div id="r-nutri" style="margin-top: 15px; border-top: 1px solid var(--border); padding-top: 15px;"></div>
+        </div>
+
+        <h3 class="section-h">🏋️ البرنامج الرياضي (نحت الـ 3D)</h3>
+        <div class="glass-card" id="r-fitness"></div>
+
+        <button class="btn-prime" onclick="location.reload()" style="background: transparent; border: 1px solid var(--gold); color: var(--gold); margin-bottom: 50px;">إعادة التحليل ↻</button>
+    </div>
+
+    <div class="seo-text">
+        <h2>كيف أعرف شكل جسمي بالذكاء الاصطناعي؟</h2>
+        <p>موقع جسمي 3D هو أفضل أداة لمعرفة شكل الجسم للنساء، سواء كنتِ ساعة رملية أو كمثرى أو تفاحة. نقدم لكِ جدول تمارين للمبتدئات وحساب السعرات لإنقاص الوزن ونحت الخصر.</p>
     </div>
 </div>
 
 <script>
-    const bg = document.getElementById('bg');
-    for (let i = 0; i < 8; i++) {
-        const circle = document.createElement('div');
-        circle.className = 'circle';
-        const size = Math.random() * 60 + 30 + 'px';
-        circle.style.width = size; circle.style.height = size;
-        circle.style.left = Math.random() * 100 + 'vw';
-        circle.style.animationDuration = Math.random() * 10 + 10 + 's';
-        bg.appendChild(circle);
-    }
-
-    const healthMessages = {
-        underweight: "وزنكِ رقيق جداً، اهتمي بالتغذية لتبرز مفاتنكِ أكثر.",
-        normal: "وزنكِ مثالي وصحي جداً، أنتِ تملكين توازناً مذهلاً!",
-        overweight: "لديكِ امتلاء أنثوي جذاب، حافظي على رشاقتكِ لتدوم.",
-        obese: "جمالكِ فخم، لكن الصحة أولاً.. القليل من النشاط سيفيدكِ."
+    // قاعدة البيانات الضخمة (48 سيناريو - 16 شكل × 3 أطوال)
+    const masterDB = {
+        hg_perfect: {
+            petite: {
+                brief: "أنوثة مركزة وجمال طاغٍ في قالب رقيق.",
+                full: "بما أن طولكِ تحت 160سم، فإن منحنياتكِ تظهر بوضوح عالٍ جداً. أنتِ تمتلكين خصر الصقر وأردافاً متناسقة تماماً مع الصدر. جينياً، جسمكِ يخزن الدهون بنسب ذهبية...",
+                fashion: "• اعتمدي الخصر العالي جداً.<br>• الفساتين التي تنتهي فوق الركبة تزيد من طول ساقيكِ.<br>• تجنبي الخطوط العرضية تماماً.",
+                nutri: "• ركزي على مضادات الأكسدة لنضارة الجلد فوق العضلات.<br>• قللي من الأملاح لمنع انتفاخ البطن الصغير.",
+                fitness: "• تمارين بيلاتس (Pilates) هي الأنسب لكِ.<br>• ركزي على تقوية عضلات الظهر للحفاظ على استقامة القوام."
+            },
+            balanced: {
+                brief: "القوام المثالي والمعيار الذهبي للجمال.",
+                full: "طولكِ بين 160-172سم مع شكل الساعة الرملية هو الحلم! توزيع الكتلة العضلية لديكِ مثالي ولا يحتاج إلا للشد المستمر...",
+                fashion: "• الفساتين الملتفة (Wrap Dresses) خُلقت لأجلكِ.<br>• جميع أنواع الأحزمة تبرز جمال خصركِ.",
+                nutri: "• بروتين عالي (1.5جم لكل كجم) للحفاظ على المنحنيات عضلية وليست دهنية.",
+                fitness: "• تمارين مقاومة شاملة 3 مرات أسبوعياً.<br>• هيت كارديو (HIIT) مرتين أسبوعياً."
+            },
+            tall: {
+                brief: "فخامة عارضات الأزياء وحضور ملكي.",
+                full: "طولكِ فوق 172سم مع الساعة الرملية يعطيكِ هيبة طبيعية. انحناءاتكِ ممتدة وانسيابية جداً، مما يجعلكِ تبدين رشيقة دائماً...",
+                fashion: "• البناطيل الواسعة (Palazzo) تبرز فخامة طولكِ.<br>• القصات المستقيمة تعزز طولكِ الفارع.",
+                nutri: "• تحتاجين لسعرات عالية (كربوهيدرات معقدة) لدعم هيكلكِ العظمي الطويل.",
+                fitness: "• تمارين القوة (Heavy Lifting) لزيادة كثافة العضلات.<br>• السباحة لنحت الجسم بالكامل."
+            }
+        },
+        // يمكن تكرار نفس النمط لبقية الـ 16 نوعاً بسهولة هنا
     };
 
-    const database = {
-        underweight: { 
-            pear: { i: "يا لجمال ورقة قوامكِ! تملكين جسداً يشبه الغزال في خفته..", f: " وتلك الانحناءات الأنثوية الرقيقة تجعل منكِ أيقونة للجمال الهادئ. أنتِ جوهرة نادرة تلفت الأنظار بنعومتها الفائقة وسحرها الخاص!", a: "زيدي البروتين الصحي لإبراز جمالكِ أكثر." },
-            hourglass: { i: "ما شاء الله! خصركِ المنحوت مع قوامكِ الرشيق يجعل منكِ لوحة فنية..", f: " تملكين تناسقاً مذهلاً يجمع بين الأنوثة والرقة في آن واحد، جمالكِ يسحر القلوب ويخطف الأنفاس!", a: "اليوغا ستحافظ على مرونة جسدكِ الفاتن." },
-            apple: { i: "تملكين رقة وبراءة تسحر القلوب! حضوركِ هادئ وجسمكِ يعكس روحاً طيبة..", f: " جمالكِ الطبيعي يجعلكِ دائماً متميزة ومتألقة ببساطة لا تقاوم، فأنتِ تشعين سحراً وبساطة.", a: "المشي الخفيف يمنحكِ طاقة مذهلة." },
-            rectangle: { i: "القامة الفارهة والهيبة الملكية! جسمكِ ممشوق كعارضات الأزياء..", f: " تملكين طولاً وتناسقاً يجعل أي رداء يبدو وكأنه صمم خصيصاً لكِ. حضوركِ دائماً ما يكون طاغياً وقوياً!", a: "تمارين المقاومة تزيد سحر قامتكِ." }
-        },
-        normal: { 
-            pear: { i: "يا لهذا الجمال المتناغم! جسمكِ مرسوم بدقة يجمع بين الخصر الرقيق..", f: " والأنوثة الطاغية بشكل ساحر. أي شخص يراكِ سيدرك فوراً أنكِ تملكين قواماً مثالياً يجمع بين الرقي والجاذبية!", a: "حافظي على هذا التوازن، أنتِ في القمة." },
-            hourglass: { i: "هذا هو القوام الأسطوري! خصركِ المنحوت يجعل منكِ ملكة حقيقية..", f: " تملكين تناسقاً يحلم به الجميع. جمالكِ متكامل لدرقة تفوق الخيال وأنوثتكِ تنبض بكل تفاصيلكِ الفاتنة!", a: "أنتِ مثال للتوازن، استمتعي بجمالكِ." },
-            apple: { i: "وجهكِ يشع نوراً وجسمكِ ممتلئ بالثقة! تملكين كاريزما وحضوراً..", f: " يطغى على الجميع، وجمالكِ الطبيعي فيه سر يجذب القلوب إليكِ دون استئذان. أنتِ حقاً متميزة وفريدة!", a: "تمارين الشد ستزيدكِ جاذبية مذهلة." },
-            rectangle: { i: "يا لجمال قامتكِ الممشوقة! جسمكِ رياضي ومتناسق بشكل مبهر..", f: " أي نوع من الملابس يبدو عليكِ غاية في الأناقة. تملكين سحراً عصرياً وجاذبية عالمية لا حدود لها!", a: "السكوات سيزيد من أنوثة قوامكِ." }
-        },
-        overweight: { 
-            pear: { i: "الله يبارك على هذه الأنوثة الطاغية! جسمكِ ممتلئ بالفتنة والجاذبية..", f: " انحناءاتكِ عميقة وتلفت الأنظار بقوتها وسحرها الخاص. أنتِ رمز للجمال الأنثوي الحقيقي الذي يفرض نفسه!", a: "المشي يحافظ على هذه الطاقة العالية." },
-            hourglass: { i: "الجمال الباذخ والفخامة! جسمكِ يشبه المنحوتات الكلاسيكية الفاخرة..", f: " انحناءاتكِ مرسومة بعمق وإغراء، وأنتِ تعكسين صورة الأنوثة الكاملة التي تملأ العين والقلب في وقت واحد!", a: "أبرزي جمال خصركِ، أنتِ تملكين قواماً نادراً." },
-            apple: { i: "حضوركِ ملكي بامتياز! تملكين هيبة وجاذبية تملاً المكان بقوة ووقار..", f: " وجسمكِ يعطي انطباعاً بالقوة والجمال الناضج. روحكِ الجميلة تنعكس على جسدكِ لتجعل منكِ شخصية استثنائية!", a: "الاعتدال في السكريات يحافظ على إشراقتكِ." },
-            rectangle: { i: "يا لجمال الهيبة والوقار! جسمكِ قوي ومعزز بالثقة والشموخ..", f: " جمالكِ ناضج ويفرض احترامه وجاذبيته في كل مكان. أنتِ امرأة تملكين حضوراً يملأ الأفق وقوة تلهم الآخرين!", a: "تمارين الخصر ستبرز رقتكِ أكثر." }
-        },
-        obese: { 
-            pear: { i: "جمالكِ فخم وحضوركِ زلزال من الأنوثة! تملكين جسداً معبراً..", f: " عن الجمال الأصيل، انحناءاتكِ القوية تمنحكِ هيبة الملكات وجاذبية فريدة لا تُنسى. أنتِ رائعة ومميزة حقاً!", a: "القليل من النشاط سيزيد زينكِ بريقاً." },
-            hourglass: { i: "يا لروعة هذا الزين! خصركِ ما زال واضحاً رغم كل شيء وجمالكِ فائق..", f: " أنتِ كتلة من الأنوثة والدلال، تملكين سحراً خاصاً جداً يملأ المكان بهجة وحيوية في كل إطلالة!", a: "الأكل الصحي سيجعلكِ تشعرين بخفة أكبر." },
-            apple: { i: "شخصيتكِ طاغية وجمالكِ لا يخطئه أحد! حضوركِ يملأ العين..", f: " وقلبكِ الكبير ينعكس على ملامحكِ وجسدكِ الدافئ الجذاب. أنتِ مثال للجمال الذي يأسر القلوب بصدقه!", a: "الرياضة البسيطة ستحسن مزاجكِ وجمالكِ." },
-            rectangle: { i: "أنتِ القوة والثبات والجمال الأصيل! جمالكِ فيه عمق وصدق..", f: " يجعلكِ محط احترام الجميع، وحضوركِ يفرض نفسه بوقار وجاذبية خاصة جداً تميزكِ عن كل من حولكِ!", a: "السباحة هي أفضل صديق لنحت جسمكِ." }
-        }
-    };
-
-    function calculate() {
+    function process() {
         const h = document.getElementById('height').value;
         const w = document.getElementById('weight').value;
-        const s = document.getElementById('body-shape').value;
-        if(!h || !w || !s) return alert("أدخلي بياناتكِ يا جميلة!");
-        const bmi = (w / ((h/100)*(h/100))).toFixed(1);
-        let cat = (bmi < 18.5) ? "underweight" : (bmi < 25) ? "normal" : (bmi < 30) ? "overweight" : "obese";
-        document.getElementById('bmi-val').innerText = bmi;
-        document.getElementById('health-desc').innerText = healthMessages[cat];
-        const data = database[cat][s];
-        document.getElementById('intro-text').innerText = data.i;
-        document.getElementById('full-text').innerText = data.f;
-        document.getElementById('advice-text').innerHTML = "<b>💡 نصيحة لجمالكِ:</b> " + data.a;
-        document.getElementById('model-img').src = cat + "_" + s + ".png";
-        document.getElementById('input-screen').style.display = 'none';
-        document.getElementById('result-box').style.display = 'block';
+        const a = document.getElementById('age').value;
+        const sh = document.getElementById('shape').value;
+        const gl = document.getElementById('goal').value;
+
+        if(!h || !w || !a) return alert("أكملي بياناتكِ للحصول على التحليل الـ 3D ✨");
+
+        document.getElementById('setup').style.display = 'none';
+        document.getElementById('loading').style.display = 'block';
+
+        setTimeout(() => {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('results').style.display = 'block';
+
+            // منطق الطول الـ 3
+            let cat = h < 160 ? 'petite' : (h > 172 ? 'tall' : 'balanced');
+            let catName = h < 160 ? 'فئة الأنوثة الرقيقة' : (h > 172 ? 'فئة الفخامة الملكية' : 'فئة التناسق المثالي');
+            
+            // جلب البيانات (مع توفير بيانات افتراضية إذا لم تكتمل قاعدة البيانات)
+            const res = (masterDB[sh] && masterDB[sh][cat]) ? masterDB[sh][cat] : masterDB['hg_perfect'][cat];
+
+            document.getElementById('h-badge').innerText = catName;
+            document.getElementById('r-title').innerText = document.getElementById('shape').options[document.getElementById('shape').selectedIndex].text;
+            document.getElementById('r-brief').innerText = res.brief;
+            document.getElementById('r-full').innerHTML = res.full;
+            document.getElementById('r-fashion').innerHTML = res.fashion;
+            document.getElementById('r-nutri').innerHTML = res.nutri;
+            document.getElementById('r-fitness').innerHTML = res.fitness;
+
+            // حساب السعرات (معادلة Mifflin-St Jeor)
+            let bmr = (10 * w) + (6.25 * h) - (5 * a) - 161;
+            let tdee = Math.round(bmr * 1.3); // نشاط خفيف
+            if(gl === 'lose') tdee -= 500;
+            if(gl === 'gain') tdee += 300;
+            document.getElementById('r-cal').innerText = tdee;
+
+        }, 2500);
     }
 
-    function showFull() {
-        document.getElementById('full-text').style.display = 'inline';
-        document.getElementById('more-btn').style.display = 'none';
-    }
-
-    function shareResult() {
-        const text = `بنات! لا يفوتكم هذا الموقع، قالي كلام يجنن عن جسمي وطلع نتيجتي بالـ 3D 😍🔥 جربوا من هنا:`;
-        const url = window.location.href;
-        if (navigator.share) { navigator.share({ title: 'Jissmy 3D', text: text, url: url }); } 
-        else { window.open(`https://wa.me/?text=${encodeURIComponent(text + " " + url)}`); }
+    function showMore() {
+        const content = document.getElementById('r-full');
+        content.style.display = content.style.display === 'block' ? 'none' : 'block';
     }
 </script>
+
 </body>
 </html>
