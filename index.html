@@ -282,7 +282,7 @@
         currentData = bodyData[selectedShape];
 
         // 1. تحديث المجسم 3D
-        document.getElementById('bodyImage').src = `models/${currentData.models[bmiKey]}`;
+        document.getElementById('bodyImage').src = `{currentData.models[bmiKey]}`;
         document.getElementById('resultTitle').innerText = currentData.title;
 
         // 2. تحديث نصوص الغزل (الملخص + التفاصيل)
