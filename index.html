@@ -89,6 +89,9 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     </style>
+
+  
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
 <body>
 
@@ -118,7 +121,7 @@
 
     <div id="results-area">
         <div class="glass-card">
-            <img src="" id="bodyImage" class="result-img">
+            <model-viewer id="bodyImage" src="" class="result-img" auto-rotate rotation-speed="15%" camera-controls touch-action="pan-y" style="width: 100%; height: 500px;"></model-viewer>
             <h2 id="bodyTitle" style="color:var(--gold);"></h2>
             <div id="bmiDisplay" class="bmi-badge"></div>
             <p id="bodyBrief" style="line-height:1.8;"></p>
@@ -168,19 +171,19 @@
 
 <script>
     const types = {
-        'hourglass': { title: 'الساعة الرملية', img: 'obese_hourglass.png', 
+        'hourglass': { title: 'الساعة الرملية', img: 'obese_hourglass.glb', 
             tall: 'طولكِ الشاهق يمنح انحناءات الساعة الرملية لديكِ هيبة ملكية لا تضاهى، فكل سنتيمتر في قامتكِ يبرز تناسق خصركِ المنحوت ويزيدكِ شموخاً وجاذبية تخطف الأنفاس بصمت.',
             short: 'قامتكِ الرقيقة تمنحكِ سحراً أنثوياً مضاعفاً، حيث تتكثف انحناءات الساعة الرملية في قالب ناعم يفيض بالفتنة والرقة، مما يجعلكِ أيقونة للجمال الكلاسيكي المتناسق بدقة فنان.'
         },
-        'pear': { title: 'الكمثرى', img: 'obese_pear.png', 
+        'pear': { title: 'الكمثرى', img: 'obese_pear.glb', 
             tall: 'طولكِ الملحوظ يوزع منحنيات جسدكِ الفاتنة برقيّ مذهل، حيث يبرز وركيكِ الممتلئين بأسلوب انسيابي يمنحكِ قوام العارضات الأرستقراطي، مما يجعل كل خطوة تعكس ثقة ملكية.',
             short: 'جمالكِ الرقيق يتركز في خصركِ النحيل ومنحنياتكِ السفلى الممتلئة، مما يمنحكِ مظهراً يفيض بالأنوثة الطاغية والجاذبية المركزة التي تمنح قامتكِ حضوراً قوياً ولا يُنسى أبداً.'
         },
-        'apple': { title: 'التفاحة', img: 'obese_apple.png', 
+        'apple': { title: 'التفاحة', img: 'obese_apple.glb', 
             tall: 'طولكِ الفارع يمنح قوامكِ المتألق توازناً فريداً، حيث تسحب قامتكِ العين نحو سيقانكِ الرشيقة والمثيرة، مما يمنح جذعكِ الممتلئ هيبة وجمالاً يجمع بين القوة والأنوثة في آن واحد.',
             short: 'قامتكِ الناعمة تمنحكِ تدويرة جمالية محببة تفيض بالحيوية، حيث تبرز سيقانكِ الرشيقة كعنصر قوة يكسر حدة الامتلاء في الوسط ويمنحكِ طابعاً أنثوياً مرحاً وجذاباً للغاية.'
         },
-        'rectangle': { title: 'المستطيل', img: 'obese_rectangle.png', 
+        'rectangle': { title: 'المستطيل', img: 'obese_rectangle.glb', 
             tall: 'طولكِ الشامخ يمنح قوامكِ الرياضي طابعاً عصرياً يشبه عارضات الأزياء، حيث تتساوى الأكتاف والوركين باستقامة توحي بالثقة والقوة، مما يجعلكِ ملكة الإطلالات العصرية المذهلة.',
             short: 'قامتكِ الصغيرة تمنح جسدكِ الرياضي تماسكاً وجاذبية فريدة، حيث تبدين كفراشة رشيقة وقوية في آن واحد، مما يمنحكِ سحراً خاصاً يجمع بين الرقة والنشاط الدائم.'
         }
